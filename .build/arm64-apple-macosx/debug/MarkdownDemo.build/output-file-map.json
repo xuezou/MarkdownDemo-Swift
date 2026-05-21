@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/master.swiftdeps"
+  },
+  "/Users/caokai/CODE/Swift/markdownDemo/Sources/MarkdownDemo/FontExtension.swift": {
+    "dependencies": "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/FontExtension.d",
+    "object": "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/FontExtension.swift.o",
+    "swiftmodule": "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/FontExtension~partial.swiftmodule",
+    "swift-dependencies": "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/FontExtension.swiftdeps",
+    "diagnostics": "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/FontExtension.dia"
+  },
+  "/Users/caokai/CODE/Swift/markdownDemo/Sources/MarkdownDemo/MarkdownRenderer.swift": {
+    "dependencies": "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/MarkdownRenderer.d",
+    "object": "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/MarkdownRenderer.swift.o",
+    "swiftmodule": "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/MarkdownRenderer~partial.swiftmodule",
+    "swift-dependencies": "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/MarkdownRenderer.swiftdeps",
+    "diagnostics": "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/MarkdownRenderer.dia"
+  }
+}

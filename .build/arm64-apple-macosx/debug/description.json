@@ -1,0 +1,2039 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.Markdown-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/sources",
+      "importPath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/ChildIndexPath.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/DirectiveArgument.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/Document.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/LiteralMarkup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/Markup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/MarkupChildren.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/MarkupData.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/PlainTextConvertibleMarkup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/RawMarkup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/BlockDirective.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/BlockQuote.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/CustomBlock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenAbstract.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenDiscussion.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenNote.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenParameter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenReturns.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/ListItem.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/OrderedList.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/UnorderedList.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Inline Container Blocks/Paragraph.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/CodeBlock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/HTMLBlock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/Heading.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/ThematicBreak.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/Table.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableBody.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableCell.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableCellContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableHead.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableRow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Infrastructure/Replacement.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Infrastructure/SourceLocation.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Emphasis.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Image.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/InlineAttributes.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Link.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Strikethrough.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Strong.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/CustomInline.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/InlineCode.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/InlineHTML.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/LineBreak.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/SoftBreak.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/SymbolLink.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/Text.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Interpretive Nodes/Aside.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/BlockDirectiveParser.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/CommonMarkConverter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/LazySplitLines.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/ParseOptions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/RangeAdjuster.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/RangerTracker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Rewriter/MarkupRewriter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BasicBlockContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BasicInlineContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BlockContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BlockMarkup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/InlineContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/InlineMarkup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/ListItemContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/AtomicCounter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/CharacterExtensions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/CollectionExtensions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/StringExtensions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Visitor/MarkupVisitor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/MarkupWalker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/Walkers/HTMLFormatter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/Walkers/MarkupFormatter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/Walkers/MarkupTreeDumper.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/CAtomic.build/CAtomic.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/arena.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/blocks.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/buffer.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/cmark.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/cmark_ctype.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/commonmark.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/footnotes.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/houdini_href_e.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/houdini_html_e.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/houdini_html_u.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/html.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/inlines.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/iterator.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/latex.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/linked_list.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/man.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/map.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/node.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/plaintext.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/plugin.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/references.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/registry.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/render.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/scanners.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/syntax_extension.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/utf8.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/xml.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/autolink.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/core-extensions.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/ext_scanners.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/strikethrough.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/table.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/tagfilter.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/tasklist.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "Markdown",
+      "moduleOutputPath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Modules/Markdown.swiftmodule",
+      "objects" : [
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/ChildIndexPath.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/DirectiveArgument.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Document.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/LiteralMarkup.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Markup.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupChildren.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupData.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/PlainTextConvertibleMarkup.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/RawMarkup.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BlockDirective.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BlockQuote.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/CustomBlock.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/DoxygenAbstract.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/DoxygenDiscussion.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/DoxygenNote.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/DoxygenParameter.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/DoxygenReturns.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/ListItem.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/OrderedList.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/UnorderedList.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Paragraph.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/CodeBlock.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/HTMLBlock.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Heading.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/ThematicBreak.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Table.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/TableBody.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/TableCell.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/TableCellContainer.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/TableHead.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/TableRow.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Replacement.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/SourceLocation.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Emphasis.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Image.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/InlineAttributes.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Link.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Strikethrough.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Strong.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/CustomInline.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/InlineCode.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/InlineHTML.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/LineBreak.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/SoftBreak.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/SymbolLink.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Text.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Aside.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BlockDirectiveParser.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/CommonMarkConverter.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/LazySplitLines.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/ParseOptions.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/RangeAdjuster.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/RangerTracker.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupRewriter.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BasicBlockContainer.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BasicInlineContainer.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BlockContainer.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BlockMarkup.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/InlineContainer.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/InlineMarkup.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/ListItemContainer.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/AtomicCounter.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/CharacterExtensions.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/CollectionExtensions.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/StringExtensions.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupVisitor.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupWalker.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/HTMLFormatter.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupFormatter.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupTreeDumper.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j11",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-Xcc",
+        "-fmodule-map-file=/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/CAtomic/include/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/CAtomic/include",
+        "-Xcc",
+        "-fmodule-map-file=/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/src/include/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/src/include",
+        "-Xcc",
+        "-fmodule-map-file=/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/extensions/include/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/extensions/include",
+        "-module-cache-path",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/include/Markdown-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-suppress-warnings",
+        "-user-module-version",
+        "0.8.0",
+        "-package-name",
+        "swift_markdown"
+      ],
+      "outputFileMapPath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/ChildIndexPath.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/DirectiveArgument.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Document.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/LiteralMarkup.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Markup.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupChildren.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupData.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/PlainTextConvertibleMarkup.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/RawMarkup.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BlockDirective.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BlockQuote.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/CustomBlock.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/DoxygenAbstract.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/DoxygenDiscussion.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/DoxygenNote.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/DoxygenParameter.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/DoxygenReturns.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/ListItem.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/OrderedList.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/UnorderedList.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Paragraph.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/CodeBlock.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/HTMLBlock.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Heading.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/ThematicBreak.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Table.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/TableBody.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/TableCell.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/TableCellContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/TableHead.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/TableRow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Replacement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/SourceLocation.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Emphasis.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Image.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/InlineAttributes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Link.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Strikethrough.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Strong.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/CustomInline.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/InlineCode.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/InlineHTML.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/LineBreak.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/SoftBreak.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/SymbolLink.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Text.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/Aside.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BlockDirectiveParser.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/CommonMarkConverter.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/LazySplitLines.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/ParseOptions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/RangeAdjuster.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/RangerTracker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupRewriter.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BasicBlockContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BasicInlineContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BlockContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/BlockMarkup.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/InlineContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/InlineMarkup.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/ListItemContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/AtomicCounter.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/CharacterExtensions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/CollectionExtensions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/StringExtensions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupVisitor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupWalker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/HTMLFormatter.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupFormatter.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/MarkupTreeDumper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Modules/Markdown.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/ChildIndexPath.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/DirectiveArgument.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/Document.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/LiteralMarkup.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/Markup.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/MarkupChildren.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/MarkupData.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/PlainTextConvertibleMarkup.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/RawMarkup.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/BlockDirective.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/BlockQuote.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/CustomBlock.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenAbstract.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenDiscussion.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenNote.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenParameter.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenReturns.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/ListItem.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/OrderedList.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/UnorderedList.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Inline Container Blocks/Paragraph.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/CodeBlock.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/HTMLBlock.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/Heading.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/ThematicBreak.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/Table.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableBody.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableCell.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableCellContainer.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableHead.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableRow.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Infrastructure/Replacement.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Infrastructure/SourceLocation.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Emphasis.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Image.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/InlineAttributes.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Link.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Strikethrough.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Strong.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/CustomInline.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/InlineCode.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/InlineHTML.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/LineBreak.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/SoftBreak.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/SymbolLink.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/Text.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Interpretive Nodes/Aside.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/BlockDirectiveParser.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/CommonMarkConverter.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/LazySplitLines.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/ParseOptions.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/RangeAdjuster.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/RangerTracker.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Rewriter/MarkupRewriter.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BasicBlockContainer.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BasicInlineContainer.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BlockContainer.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BlockMarkup.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/InlineContainer.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/InlineMarkup.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/ListItemContainer.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/AtomicCounter.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/CharacterExtensions.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/CollectionExtensions.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/StringExtensions.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Visitor/MarkupVisitor.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/MarkupWalker.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/Walkers/HTMLFormatter.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/Walkers/MarkupFormatter.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/Walkers/MarkupTreeDumper.swift"
+      ],
+      "tempsPath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.MarkdownDemo-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/sources",
+      "importPath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/Sources/MarkdownDemo/FontExtension.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/Sources/MarkdownDemo/MarkdownRenderer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Modules/Markdown.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "MarkdownDemo",
+      "moduleOutputPath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Modules/MarkdownDemo.swiftmodule",
+      "objects" : [
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/FontExtension.swift.o",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/MarkdownRenderer.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j11",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-Xcc",
+        "-fmodule-map-file=/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/extensions/include/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/extensions/include",
+        "-Xcc",
+        "-fmodule-map-file=/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/src/include/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/src/include",
+        "-Xcc",
+        "-fmodule-map-file=/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/CAtomic/include/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/CAtomic/include",
+        "-module-cache-path",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/include/MarkdownDemo-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g"
+      ],
+      "outputFileMapPath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/FontExtension.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/MarkdownRenderer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Modules/MarkdownDemo.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/caokai/CODE/Swift/markdownDemo/Sources/MarkdownDemo/FontExtension.swift",
+        "/Users/caokai/CODE/Swift/markdownDemo/Sources/MarkdownDemo/MarkdownRenderer.swift"
+      ],
+      "tempsPath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "Markdown" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "Markdown",
+      "-package-name",
+      "swift_markdown",
+      "-c",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/ChildIndexPath.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/DirectiveArgument.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/Document.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/LiteralMarkup.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/Markup.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/MarkupChildren.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/MarkupData.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/PlainTextConvertibleMarkup.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/RawMarkup.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/BlockDirective.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/BlockQuote.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/CustomBlock.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenAbstract.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenDiscussion.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenNote.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenParameter.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenReturns.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/ListItem.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/OrderedList.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/UnorderedList.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Inline Container Blocks/Paragraph.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/CodeBlock.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/HTMLBlock.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/Heading.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/ThematicBreak.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/Table.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableBody.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableCell.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableCellContainer.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableHead.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableRow.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Infrastructure/Replacement.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Infrastructure/SourceLocation.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Emphasis.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Image.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/InlineAttributes.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Link.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Strikethrough.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Strong.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/CustomInline.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/InlineCode.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/InlineHTML.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/LineBreak.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/SoftBreak.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/SymbolLink.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/Text.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Interpretive Nodes/Aside.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/BlockDirectiveParser.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/CommonMarkConverter.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/LazySplitLines.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/ParseOptions.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/RangeAdjuster.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/RangerTracker.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Rewriter/MarkupRewriter.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BasicBlockContainer.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BasicInlineContainer.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BlockContainer.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BlockMarkup.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/InlineContainer.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/InlineMarkup.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/ListItemContainer.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/AtomicCounter.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/CharacterExtensions.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/CollectionExtensions.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/StringExtensions.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Visitor/MarkupVisitor.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/MarkupWalker.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/Walkers/HTMLFormatter.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/Walkers/MarkupFormatter.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/Walkers/MarkupTreeDumper.swift",
+      "-I",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j11",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-Xcc",
+      "-fmodule-map-file=/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/CAtomic/include/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/CAtomic/include",
+      "-Xcc",
+      "-fmodule-map-file=/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/src/include/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/src/include",
+      "-Xcc",
+      "-fmodule-map-file=/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/extensions/include/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/extensions/include",
+      "-module-cache-path",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/include/Markdown-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-suppress-warnings",
+      "-user-module-version",
+      "0.8.0",
+      "-package-name",
+      "swift_markdown",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "MarkdownDemo" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "MarkdownDemo",
+      "-c",
+      "/Users/caokai/CODE/Swift/markdownDemo/Sources/MarkdownDemo/FontExtension.swift",
+      "/Users/caokai/CODE/Swift/markdownDemo/Sources/MarkdownDemo/MarkdownRenderer.swift",
+      "-I",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j11",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-Xcc",
+      "-fmodule-map-file=/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/extensions/include/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/extensions/include",
+      "-Xcc",
+      "-fmodule-map-file=/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/src/include/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-cmark/src/include",
+      "-Xcc",
+      "-fmodule-map-file=/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/CAtomic/include/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/CAtomic/include",
+      "-module-cache-path",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/include/MarkdownDemo-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "CAtomic" : [
+
+    ],
+    "Markdown" : [
+      "cmark_gfm_extensions",
+      "cmark_gfm",
+      "CAtomic"
+    ],
+    "MarkdownDemo" : [
+      "Markdown",
+      "cmark_gfm_extensions",
+      "cmark_gfm",
+      "CAtomic"
+    ],
+    "api_test" : [
+      "cmark_gfm_extensions",
+      "cmark_gfm"
+    ],
+    "cmark_gfm" : [
+
+    ],
+    "cmark_gfm_bin" : [
+      "cmark_gfm_extensions",
+      "cmark_gfm"
+    ],
+    "cmark_gfm_extensions" : [
+      "cmark_gfm"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/ChildIndexPath.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/DirectiveArgument.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/Document.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/LiteralMarkup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/Markup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/MarkupChildren.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/MarkupData.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/PlainTextConvertibleMarkup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Base/RawMarkup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/BlockDirective.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/BlockQuote.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/CustomBlock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenAbstract.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenDiscussion.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenNote.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenParameter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenReturns.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/ListItem.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/OrderedList.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Block Container Blocks/UnorderedList.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Inline Container Blocks/Paragraph.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/CodeBlock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/HTMLBlock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/Heading.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Leaf Blocks/ThematicBreak.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/Table.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableBody.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableCell.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableCellContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableHead.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Block Nodes/Tables/TableRow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Infrastructure/Replacement.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Infrastructure/SourceLocation.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Emphasis.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Image.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/InlineAttributes.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Link.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Strikethrough.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Containers/Strong.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/CustomInline.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/InlineCode.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/InlineHTML.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/LineBreak.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/SoftBreak.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/SymbolLink.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Inline Nodes/Inline Leaves/Text.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Interpretive Nodes/Aside.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/BlockDirectiveParser.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/CommonMarkConverter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/LazySplitLines.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/ParseOptions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/RangeAdjuster.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Parser/RangerTracker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Rewriter/MarkupRewriter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BasicBlockContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BasicInlineContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BlockContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/BlockMarkup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/InlineContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/InlineMarkup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Structural Restrictions/ListItemContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/AtomicCounter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/CharacterExtensions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/CollectionExtensions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Utility/StringExtensions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Visitor/MarkupVisitor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/MarkupWalker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/Walkers/HTMLFormatter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/Walkers/MarkupFormatter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/checkouts/swift-markdown/Sources/Markdown/Walker/Walkers/MarkupTreeDumper.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/Markdown.build/sources"
+    },
+    "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/Sources/MarkdownDemo/FontExtension.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/Sources/MarkdownDemo/MarkdownRenderer.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/MarkdownDemo.build/sources"
+    },
+    "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/api_test-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/api_test-entitlement.plist"
+    },
+    "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/api_test.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/api_test.build/cplusplus.cpp.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/api_test.build/harness.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/api_test.build/main.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/arena.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/blocks.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/buffer.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/cmark.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/cmark_ctype.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/commonmark.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/footnotes.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/houdini_href_e.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/houdini_html_e.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/houdini_html_u.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/html.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/inlines.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/iterator.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/latex.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/linked_list.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/man.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/map.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/node.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/plaintext.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/plugin.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/references.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/registry.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/render.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/scanners.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/syntax_extension.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/utf8.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/xml.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/autolink.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/core-extensions.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/ext_scanners.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/strikethrough.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/table.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/tagfilter.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/tasklist.c.o"
+        }
+      ],
+      "outputFilePath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/api_test.product/Objects.LinkFileList"
+    },
+    "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark-gfm-bin-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark-gfm-bin-entitlement.plist"
+    },
+    "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark-gfm-bin.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/arena.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/blocks.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/buffer.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/cmark.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/cmark_ctype.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/commonmark.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/footnotes.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/houdini_href_e.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/houdini_html_e.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/houdini_html_u.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/html.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/inlines.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/iterator.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/latex.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/linked_list.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/man.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/map.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/node.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/plaintext.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/plugin.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/references.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/registry.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/render.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/scanners.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/syntax_extension.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/utf8.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm.build/xml.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_bin.build/main.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/autolink.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/core-extensions.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/ext_scanners.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/strikethrough.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/table.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/tagfilter.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark_gfm_extensions.build/tasklist.c.o"
+        }
+      ],
+      "outputFilePath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/cmark-gfm-bin.product/Objects.LinkFileList"
+    },
+    "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/caokai/CODE/Swift/markdownDemo/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}
