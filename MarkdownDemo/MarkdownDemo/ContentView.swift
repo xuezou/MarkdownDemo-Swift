@@ -9,7 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        MarkdownCaseListView()
+        switch MarkdownAppDestination.default {
+        case .caseList:
+            MarkdownCaseListView()
+        case .editor:
+            #if os(macOS)
+            MarkdownEditorView()
+            #else
+            MarkdownCaseListView()
+            #endif
+        }
     }
 }
 

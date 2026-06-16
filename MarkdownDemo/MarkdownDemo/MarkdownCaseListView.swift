@@ -56,11 +56,11 @@ struct MarkdownCaseListView: View {
             .navigationTitle("Markdown 测试案例")
             .searchable(text: $searchText, prompt: "搜索测试案例")
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: trailingToolbarPlacement) {
                     categoryMenu
                 }
                 
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: leadingToolbarPlacement) {
                     reloadButton
                 }
             }
@@ -92,7 +92,7 @@ struct MarkdownCaseListView: View {
                 }
             }
         }
-        .listStyle(.insetGrouped)
+        .compatibleInsetListStyle()
         .navigationDestination(for: MarkdownTestCase.self) { testCase in
             if let category = manager.categories.first(where: { $0.id == testCase.category }) {
                 MarkdownDetailView(testCase: testCase, category: category)
@@ -128,6 +128,33 @@ struct MarkdownCaseListView: View {
             Image(systemName: "arrow.clockwise")
         }
         .disabled(manager.isLoading)
+    }
+}
+
+private var trailingToolbarPlacement: ToolbarItemPlacement {
+    #if os(macOS)
+    .primaryAction
+    #else
+    .topBarTrailing
+    #endif
+}
+
+private var leadingToolbarPlacement: ToolbarItemPlacement {
+    #if os(macOS)
+    .navigation
+    #else
+    .topBarLeading
+    #endif
+}
+
+private extension View {
+    @ViewBuilder
+    func compatibleInsetListStyle() -> some View {
+        #if os(macOS)
+        self.listStyle(.inset)
+        #else
+        self.listStyle(.insetGrouped)
+        #endif
     }
 }
 

@@ -163,6 +163,9 @@ struct MarkdownRenderer {
 
         // 代码块
         if trimmed.hasPrefix("```") {
+            if isMermaidBlock(trimmed) {
+                return renderMermaidBlock(trimmed)
+            }
             return renderCodeBlock(trimmed)
         }
 
@@ -228,15 +231,7 @@ struct MarkdownRenderer {
 
     /// 检测是否为表格
     private static func isTable(_ text: String) -> Bool {
-        let lines = text.components(separatedBy: .newlines)
-        guard lines.count >= 2 else { return false }
-
-        let nonEmptyLines = lines.filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
-        guard nonEmptyLines.count >= 2 else { return false }
-
-        // 第二个非空行应该是分隔符行（包含 | 和 -）
-        let secondLine = nonEmptyLines[1]
-        return secondLine.contains("|") && secondLine.contains("-")
+        MarkdownTableParser.parse(text) != nil
     }
 
     /// 检测是否为分隔线
@@ -407,6 +402,46 @@ struct MarkdownRenderer {
         return codeAttr
     }
 
+    private static func isMermaidBlock(_ text: String) -> Bool {
+        guard let firstLine = text.components(separatedBy: .newlines).first else {
+            return false
+        }
+        return firstLine.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() == "```mermaid"
+    }
+
+    private static func renderMermaidBlock(_ text: String) -> AttributedString {
+        let content = fencedCodeContent(from: text)
+
+        var result = AttributedString("Mermaid Flowchart\n")
+        result.font = .misans(.semibold, size: 16)
+        result.foregroundColor = .white
+        result.backgroundColor = .blue.opacity(0.18)
+
+        var hint = AttributedString("Diagram rendering is not enabled yet. Source:\n")
+        hint.font = .misans(.medium, size: 14)
+        hint.foregroundColor = .gray
+        result.append(hint)
+
+        var source = AttributedString(content)
+        source.font = .system(.body, design: .monospaced)
+        source.foregroundColor = .white
+        source.backgroundColor = .blue.opacity(0.08)
+        result.append(source)
+
+        return result
+    }
+
+    private static func fencedCodeContent(from text: String) -> String {
+        var lines = text.components(separatedBy: .newlines)
+        if lines.first?.trimmingCharacters(in: .whitespaces).hasPrefix("```") == true {
+            lines.removeFirst()
+        }
+        if lines.last?.trimmingCharacters(in: .whitespaces) == "```" {
+            lines.removeLast()
+        }
+        return lines.joined(separator: "\n")
+    }
+
     /// 渲染引用块
     private static func renderBlockQuote(_ text: String, formulas: [String: LaTeXFormula]) -> AttributedString {
         var result = AttributedString()
@@ -445,68 +480,94 @@ struct MarkdownRenderer {
 
     /// 渲染表格
     private static func renderTableBlock(_ text: String, formulas: [String: LaTeXFormula]) -> AttributedString {
-        let lines = text.components(separatedBy: .newlines).filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
-        guard lines.count >= 2 else { return AttributedString() }
+        guard let table = MarkdownTableParser.parse(text) else {
+            return renderParagraph(text, formulas: formulas)
+        }
 
         var result = AttributedString()
-        let columnWidth = 14
 
-        func horizontalLine() -> AttributedString {
-            var line = AttributedString()
-            line.append(AttributedString(String(repeating: "─", count: columnWidth * 3 + 5)))
-            line.append(AttributedString("\n"))
-            line.foregroundColor = .white
-            return line
+        let columnWidths = tableColumnWidths(table)
+        result += tableBorder(left: "┌", separator: "┬", right: "┐", widths: columnWidths)
+        result += tableRow(table.headers, widths: columnWidths, alignments: table.alignments, formulas: formulas, isHeader: true)
+        result += tableBorder(left: "├", separator: "┼", right: "┤", widths: columnWidths)
+
+        for row in table.rows {
+            result += tableRow(row, widths: columnWidths, alignments: table.alignments, formulas: formulas, isHeader: false)
         }
 
-        // 解析表头
-        let headerLine = lines[0]
-        let headerCells = parseTableCells(headerLine)
+        result += tableBorder(left: "└", separator: "┴", right: "┘", widths: columnWidths)
+        return result
+    }
 
-        result.append(AttributedString("│"))
-        for cell in headerCells {
-            let content = parseInlineMarkdown(cell, formulas: formulas)
-            let cellText = String(content.characters)
-            let padded = centerPadded(cellText, width: columnWidth)
-            var cellAttr = AttributedString(padded)
-            cellAttr.font = .system(size: 14, weight: .bold)
-            cellAttr.foregroundColor = .white
-            result += cellAttr
-            result += AttributedString(" │")
-        }
-        result.append(AttributedString("\n"))
-        result += horizontalLine()
+    private static func tableColumnWidths(_ table: MarkdownTable) -> [Int] {
+        var widths = table.headers.map { displayWidth($0) }
 
-        // 解析数据行（跳过第二行的分隔符行）
-        for i in 2..<lines.count {
-            let rowCells = parseTableCells(lines[i])
-            result.append(AttributedString("│ "))
-            for cell in rowCells {
-                let content = parseInlineMarkdown(cell, formulas: formulas)
-                result += content
-                result += AttributedString(" │ ")
+        for row in table.rows {
+            for (index, cell) in row.enumerated() where index < widths.count {
+                widths[index] = max(widths[index], displayWidth(cell))
             }
-            result.append(AttributedString("\n"))
+        }
+
+        return widths.map { min(max($0, 4), 48) }
+    }
+
+    private static func tableBorder(left: String, separator: String, right: String, widths: [Int]) -> AttributedString {
+        let line = left + widths.map { String(repeating: "─", count: $0 + 2) }.joined(separator: separator) + right + "\n"
+        var attr = AttributedString(line)
+        attr.font = .system(.body, design: .monospaced)
+        attr.foregroundColor = .gray
+        return attr
+    }
+
+    private static func tableRow(
+        _ cells: [String],
+        widths: [Int],
+        alignments: [MarkdownTable.Alignment],
+        formulas: [String: LaTeXFormula],
+        isHeader: Bool
+    ) -> AttributedString {
+        var result = AttributedString("│ ")
+        result.font = .system(.body, design: .monospaced)
+        result.foregroundColor = .gray
+
+        for index in widths.indices {
+            let cell = index < cells.count ? cells[index] : ""
+            let alignment = index < alignments.count ? alignments[index] : .left
+            let paddedCell = padded(cell, width: widths[index], alignment: alignment)
+            var content = parseInlineMarkdown(paddedCell, formulas: formulas)
+            content.font = isHeader ? .misans(.semibold, size: 15) : .misans(.medium, size: 15)
+            result += content
+
+            var separator = AttributedString(index == widths.indices.last ? " │\n" : " │ ")
+            separator.font = .system(.body, design: .monospaced)
+            separator.foregroundColor = .gray
+            result += separator
         }
 
         return result
     }
 
-    /// 解析表格单元格
-    private static func parseTableCells(_ line: String) -> [String] {
-        let trimmed = line.trimmingCharacters(in: .whitespaces)
-        let components = trimmed.split(separator: "|", omittingEmptySubsequences: false)
-        return components.map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
+    private static func padded(_ text: String, width: Int, alignment: MarkdownTable.Alignment) -> String {
+        let textWidth = displayWidth(text)
+        guard textWidth < width else { return text }
+
+        let padding = width - textWidth
+        switch alignment {
+        case .left:
+            return text + String(repeating: " ", count: padding)
+        case .right:
+            return String(repeating: " ", count: padding) + text
+        case .center:
+            let left = padding / 2
+            let right = padding - left
+            return String(repeating: " ", count: left) + text + String(repeating: " ", count: right)
+        }
     }
 
-    /// 居中对齐填充
-    private static func centerPadded(_ text: String, width: Int) -> String {
-        let count = text.count
-        guard count < width else { return String(text.prefix(width)) }
-        let padding = width - count
-        let left = padding / 2
-        let right = padding - left
-        return String(repeating: " ", count: left) + text + String(repeating: " ", count: right)
+    private static func displayWidth(_ text: String) -> Int {
+        text.reduce(0) { width, character in
+            width + (character.isASCII ? 1 : 2)
+        }
     }
 
     /// 行内 markdown 解析（使用原生 AttributedString）

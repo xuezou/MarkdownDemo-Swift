@@ -39,6 +39,7 @@ struct MarkdownDetailView: View {
                 Group {
                     if selectedTab == 0 {
                         RenderedContentView(
+                            markdown: testCase.markdown,
                             content: renderedContent,
                             expectedFeatures: testCase.expectedFeatures,
                             color: color
@@ -52,9 +53,9 @@ struct MarkdownDetailView: View {
             .padding(.vertical)
         }
         .navigationTitle(testCase.title)
-        .navigationBarTitleDisplayMode(.large)
+        .compatibleLargeNavigationTitle()
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: detailTrailingToolbarPlacement) {
                 Button {
                     withAnimation {
                         selectedTab = selectedTab == 0 ? 1 : 0
@@ -138,7 +139,7 @@ private struct CaseInfoCard: View {
             .padding(.top, 4)
         }
         .padding()
-        .background(Color(.systemBackground))
+        .background(Color.compatibleSystemBackground)
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.05), radius: 8)
         .padding(.horizontal)
@@ -187,9 +188,14 @@ private struct FeatureTag: View {
 
 /// 渲染内容视图
 private struct RenderedContentView: View {
+    let markdown: String
     let content: AttributedString
     let expectedFeatures: [String]
     let color: Color
+
+    private var blocks: [MarkdownPreviewBlock] {
+        MarkdownPreviewBlockParser.parse(markdown)
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -206,14 +212,33 @@ private struct RenderedContentView: View {
                         .fill(Color.black.opacity(0.9))
                     
                     ScrollView {
-                        Text(content)
-                            .padding(16)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        LazyVStack(alignment: .leading, spacing: 18) {
+                            ForEach(Array(blocks.enumerated()), id: \.offset) { _, block in
+                                switch block {
+                                case .markdown(let markdown):
+                                    Text(MarkdownRenderer.render(markdown: markdown))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                case .mermaid(let source):
+                                    ScrollView(.horizontal) {
+                                        MermaidFlowchartView(source: source)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                case .table(let table):
+                                    ScrollView(.horizontal) {
+                                        MarkdownTableView(table: table)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                            }
+                        }
+                        .padding(16)
                     }
                 }
                 .frame(minHeight: 200)
             }
-            .background(Color(.systemGray6))
+            .background(Color.compatibleGroupedBackground)
             .cornerRadius(12)
             
             // 渲染统计
@@ -241,7 +266,7 @@ private struct RenderStatsView: View {
             )
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(Color.compatibleGroupedBackground)
         .cornerRadius(8)
     }
 }
@@ -283,7 +308,7 @@ private struct RawMarkdownView: View {
             
             ZStack {
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(.systemGray6))
+                    .fill(Color.compatibleGroupedBackground)
                 
                 ScrollView {
                     Text(content)
@@ -353,6 +378,43 @@ private struct FlowLayout: Layout {
 }
 
 // MARK: - Color Extension
+
+private var detailTrailingToolbarPlacement: ToolbarItemPlacement {
+    #if os(macOS)
+    .primaryAction
+    #else
+    .topBarTrailing
+    #endif
+}
+
+private extension View {
+    @ViewBuilder
+    func compatibleLargeNavigationTitle() -> some View {
+        #if os(macOS)
+        self
+        #else
+        self.navigationBarTitleDisplayMode(.large)
+        #endif
+    }
+}
+
+private extension Color {
+    static var compatibleSystemBackground: Color {
+        #if os(macOS)
+        Color(nsColor: .windowBackgroundColor)
+        #else
+        Color(.systemBackground)
+        #endif
+    }
+
+    static var compatibleGroupedBackground: Color {
+        #if os(macOS)
+        Color(nsColor: .controlBackgroundColor)
+        #else
+        Color(.systemGray6)
+        #endif
+    }
+}
 
 #Preview("详情视图") {
     NavigationStack {
