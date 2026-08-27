@@ -137,7 +137,7 @@ private struct MarkdownPreviewPane: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         case .mermaid(let source):
                             ScrollView(.horizontal) {
-                                MermaidFlowchartView(source: source)
+                                MermaidDiagramView(source: source)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)

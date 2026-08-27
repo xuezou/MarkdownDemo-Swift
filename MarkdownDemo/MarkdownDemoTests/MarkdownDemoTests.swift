@@ -50,6 +50,33 @@ struct MarkdownDemoTests {
         H --> I
     """
 
+    private let sampleMermaidSequenceDiagram = """
+    sequenceDiagram
+        participant U as 用户
+        participant APP
+        participant D as DIAL / PHI
+        participant API as 后端
+
+        U->>APP: 扫码
+        APP->>D: stat.device + sys.bind
+        D-->>APP: 凭证写入成功
+        APP->>API: 幂等创建设备
+        API-->>APP: DeviceInfo
+        APP->>APP: 本地事务提交
+        APP->>APP: paired=true
+
+        alt 自动日期时间开启
+            APP->>D: sys.time.sync
+            D-->>APP: 时间已接受
+        else 自动日期时间关闭
+            APP->>APP: 不自动覆盖 PHI 时间
+        end
+
+        opt 用户可选 WiFi
+            APP->>D: net.wifi.*
+        end
+    """
+
     @Test func defaultLaunchDestinationMatchesPlatform() async throws {
         #if os(macOS)
         guard case .editor = MarkdownAppDestination.default else {
@@ -164,6 +191,27 @@ struct MarkdownDemoTests {
         #expect(flowchart.node(id: "B")?.shape == .decision)
         #expect(flowchart.node(id: "C")?.shape == .process)
         #expect(flowchart.edges.contains { $0.from == "B" && $0.to == "C" && $0.label == "系统标签" })
+    }
+
+    @MainActor
+    @Test func mermaidParserReadsSequenceParticipantsMessagesAndGroups() async throws {
+        let diagram = try #require(MermaidSequenceDiagramParser.parse(sampleMermaidSequenceDiagram))
+
+        #expect(diagram.participants.map(\.id) == ["U", "APP", "D", "API"])
+        #expect(diagram.participant(id: "U")?.displayName == "用户")
+        #expect(diagram.participant(id: "D")?.displayName == "DIAL / PHI")
+        #expect(diagram.messages.count == 11)
+        #expect(diagram.messages.contains { $0.from == "APP" && $0.to == "APP" && $0.text == "paired=true" })
+        #expect(diagram.messages.contains { $0.from == "D" && $0.to == "APP" && $0.style == .dashed })
+        #expect(diagram.statements.contains { $0 == .groupStart(kind: .alt, title: "自动日期时间开启") })
+        #expect(diagram.statements.contains { $0 == .groupElse(title: "自动日期时间关闭") })
+        #expect(diagram.statements.contains { $0 == .groupStart(kind: .opt, title: "用户可选 WiFi") })
+    }
+
+    @MainActor
+    @Test func mermaidDiagramParserClassifiesFlowchartsAndSequences() async throws {
+        #expect(MermaidDiagramParser.kind(for: sampleMermaidFlowchart) == .flowchart)
+        #expect(MermaidDiagramParser.kind(for: sampleMermaidSequenceDiagram) == .sequence)
     }
 
     @MainActor
