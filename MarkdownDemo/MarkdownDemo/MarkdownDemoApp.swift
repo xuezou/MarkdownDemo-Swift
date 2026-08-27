@@ -12,6 +12,7 @@ struct MarkdownDemoApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .markdownTheme(.light)
         }
     }
 }

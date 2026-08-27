@@ -7,6 +7,7 @@ import SwiftUI
 
 struct MarkdownTableView: View {
     let table: MarkdownTable
+    var theme: MarkdownTheme = .light
 
     private var columnWidths: [CGFloat] {
         table.headers.indices.map { index in
@@ -22,12 +23,13 @@ struct MarkdownTableView: View {
         Grid(alignment: .leading, horizontalSpacing: 0, verticalSpacing: 0) {
             GridRow {
                 ForEach(table.headers.indices, id: \.self) { index in
-                    MarkdownTableCell(
-                        text: table.headers[index],
-                        width: columnWidths[index],
-                        alignment: alignment(at: index),
-                        isHeader: true
-                    )
+                MarkdownTableCell(
+                    text: table.headers[index],
+                    width: columnWidths[index],
+                    alignment: alignment(at: index),
+                    isHeader: true,
+                    theme: theme
+                )
                 }
             }
 
@@ -39,7 +41,8 @@ struct MarkdownTableView: View {
                             width: columnWidths[columnIndex],
                             alignment: alignment(at: columnIndex),
                             isHeader: false,
-                            isAlternateRow: rowIndex.isMultiple(of: 2)
+                            isAlternateRow: rowIndex.isMultiple(of: 2),
+                            theme: theme
                         )
                     }
                 }
@@ -48,7 +51,7 @@ struct MarkdownTableView: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .overlay {
             RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.markdownTableBorder, lineWidth: 1)
+                .stroke(theme.tableBorder, lineWidth: 1)
         }
     }
 
@@ -69,9 +72,10 @@ private struct MarkdownTableCell: View {
     let alignment: MarkdownTable.Alignment
     let isHeader: Bool
     var isAlternateRow = false
+    var theme: MarkdownTheme = .light
 
     var body: some View {
-        Text(MarkdownRenderer.render(markdown: text))
+        Text(MarkdownRenderer.render(markdown: text, theme: theme))
             .font(isHeader ? .misans(.semibold, size: 14) : .misans(.medium, size: 14))
             .lineLimit(nil)
             .multilineTextAlignment(textAlignment)
@@ -83,21 +87,21 @@ private struct MarkdownTableCell: View {
             .background(background)
             .overlay(alignment: .trailing) {
                 Rectangle()
-                    .fill(Color.markdownTableBorder)
+                    .fill(theme.tableBorder)
                     .frame(width: 1)
             }
             .overlay(alignment: .bottom) {
                 Rectangle()
-                    .fill(Color.markdownTableBorder)
+                    .fill(theme.tableBorder)
                     .frame(height: 1)
             }
     }
 
     private var background: Color {
         if isHeader {
-            return .markdownTableHeaderBackground
+            return theme.tableHeaderBackground
         }
-        return isAlternateRow ? .markdownTableAlternateRowBackground : .markdownTableRowBackground
+        return isAlternateRow ? theme.tableAlternateRow : theme.tableRowBackground
     }
 
     private var frameAlignment: Alignment {
@@ -123,24 +127,6 @@ private struct MarkdownTableCell: View {
     }
 }
 
-private extension Color {
-    static var markdownTableBorder: Color {
-        Color.white.opacity(0.18)
-    }
-
-    static var markdownTableHeaderBackground: Color {
-        Color.white.opacity(0.12)
-    }
-
-    static var markdownTableRowBackground: Color {
-        Color.white.opacity(0.04)
-    }
-
-    static var markdownTableAlternateRowBackground: Color {
-        Color.white.opacity(0.07)
-    }
-}
-
 #Preview {
     if let table = MarkdownTableParser.parse("""
     | 类型 | 文档或风险 | 处理 |
@@ -150,6 +136,6 @@ private extension Color {
     """) {
         MarkdownTableView(table: table)
             .padding()
-            .background(Color.black.opacity(0.9))
+            .background(Color(red: 0.98, green: 0.98, blue: 0.98))
     }
 }

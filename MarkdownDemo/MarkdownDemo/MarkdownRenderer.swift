@@ -14,17 +14,9 @@ struct MarkdownRenderer {
         let isBlock: Bool  // true = 块级公式 \[...\] 或 $$...$$, false = 行内公式 \(...\) 或 $...$
     }
 
-    static func render(markdown: String) -> AttributedString {
-        // 预处理：识别并替换 LaTeX 公式
+    static func render(markdown: String, theme: MarkdownTheme = .light) -> AttributedString {
         let (processedMarkdown, formulas) = preprocessLaTeX(markdown)
-        if !formulas.isEmpty {
-            let blockCount = formulas.values.filter(\.isBlock).count
-            let inlineCount = formulas.count - blockCount
-            print("🧮 LaTeX 公式识别: block=\(blockCount), inline=\(inlineCount)")
-            print("🧮 LaTeX 预处理片段: \(String(processedMarkdown.prefix(180)))")
-        }
 
-        // 将 markdown 按空行分割成 blocks
         let blocks = splitIntoBlocks(processedMarkdown)
         var result = AttributedString()
 
@@ -33,7 +25,7 @@ struct MarkdownRenderer {
             let trimmed = block.trimmingCharacters(in: .whitespacesAndNewlines)
             if trimmed.isEmpty { continue }
 
-            let renderedBlock = renderBlock(trimmed, formulas: formulas)
+            let renderedBlock = renderBlock(trimmed, formulas: formulas, theme: theme)
             result += renderedBlock
 
             if !isLast {
@@ -157,50 +149,41 @@ struct MarkdownRenderer {
         "LATEXFORMULATOKEN\(index)END"
     }
 
-    /// 判断 block 类型并渲染
-    private static func renderBlock(_ block: String, formulas: [String: LaTeXFormula]) -> AttributedString {
+    private static func renderBlock(_ block: String, formulas: [String: LaTeXFormula], theme: MarkdownTheme) -> AttributedString {
         let trimmed = block.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        // 代码块
         if trimmed.hasPrefix("```") {
             if isMermaidBlock(trimmed) {
-                return renderMermaidBlock(trimmed)
+                return renderMermaidBlock(trimmed, theme: theme)
             }
-            return renderCodeBlock(trimmed)
+            return renderCodeBlock(trimmed, theme: theme)
         }
 
-        // 有序列表 - 检查每一行是否以数字开头
         if isOrderedList(trimmed) {
-            return renderOrderedList(trimmed, formulas: formulas)
+            return renderOrderedList(trimmed, formulas: formulas, theme: theme)
         }
 
-        // 无序列表
         if isUnorderedList(trimmed) {
-            return renderUnorderedList(trimmed, formulas: formulas)
+            return renderUnorderedList(trimmed, formulas: formulas, theme: theme)
         }
 
-        // 表格
         if isTable(trimmed) {
-            return renderTableBlock(trimmed, formulas: formulas)
+            return renderTableBlock(trimmed, formulas: formulas, theme: theme)
         }
 
-        // 引用块
         if trimmed.hasPrefix(">") {
-            return renderBlockQuote(trimmed, formulas: formulas)
+            return renderBlockQuote(trimmed, formulas: formulas, theme: theme)
         }
 
-        // 分隔线
         if isThematicBreak(trimmed) {
-            return renderThematicBreak()
+            return renderThematicBreak(theme: theme)
         }
 
-        // 标题
         if let headingLevel = detectHeadingLevel(trimmed) {
-            return renderHeading(trimmed, level: headingLevel, formulas: formulas)
+            return renderHeading(trimmed, level: headingLevel, formulas: formulas, theme: theme)
         }
 
-        // 普通段落
-        return renderParagraph(trimmed, formulas: formulas)
+        return renderParagraph(trimmed, formulas: formulas, theme: theme)
     }
 
     /// 检测是否为有序列表
@@ -258,19 +241,16 @@ struct MarkdownRenderer {
     }
 
     /// 渲染标题
-    private static func renderHeading(_ text: String, level: Int, formulas: [String: LaTeXFormula]) -> AttributedString {
+    private static func renderHeading(_ text: String, level: Int, formulas: [String: LaTeXFormula], theme: MarkdownTheme) -> AttributedString {
         var content = text.trimmingCharacters(in: .whitespaces)
 
-        // 去除开头的 # 标记
         let prefix = String(repeating: "#", count: level)
         if content.hasPrefix(prefix) {
             content = String(content.dropFirst(level)).trimmingCharacters(in: .whitespaces)
         }
 
-        // 使用原生 markdown 解析内容
-        let attr = parseInlineMarkdown(content, formulas: formulas)
+        let attr = parseInlineMarkdown(content, formulas: formulas, theme: theme)
 
-        // 应用标题样式
         let fontSize: CGFloat
         switch level {
         case 1: fontSize = 30
@@ -282,32 +262,39 @@ struct MarkdownRenderer {
         default: fontSize = 16
         }
 
-        // 应用字体和颜色
+        let color: Color
+        switch level {
+        case 1: color = theme.heading1
+        case 2: color = theme.heading2
+        case 3: color = theme.heading3
+        default: color = theme.heading4
+        }
+
         var styled = AttributedString()
         for run in attr.runs {
             var runAttr = AttributedString(attr[run.range])
             runAttr.font = .misans(.semibold, size: fontSize)
-            runAttr.foregroundColor = .white
+            runAttr.foregroundColor = color
             styled.append(runAttr)
         }
 
         if styled.characters.isEmpty {
             styled = attr
             styled.font = .misans(.semibold, size: fontSize)
-            styled.foregroundColor = .white
+            styled.foregroundColor = color
         }
 
         return styled
     }
 
     /// 渲染段落
-    private static func renderParagraph(_ text: String, formulas: [String: LaTeXFormula]) -> AttributedString {
+    private static func renderParagraph(_ text: String, formulas: [String: LaTeXFormula], theme: MarkdownTheme) -> AttributedString {
         let content = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        return parseInlineMarkdown(content, formulas: formulas)
+        return parseInlineMarkdown(content, formulas: formulas, theme: theme)
     }
 
     /// 渲染无序列表
-    private static func renderUnorderedList(_ text: String, formulas: [String: LaTeXFormula]) -> AttributedString {
+    private static func renderUnorderedList(_ text: String, formulas: [String: LaTeXFormula], theme: MarkdownTheme) -> AttributedString {
         var result = AttributedString()
         let lines = text.components(separatedBy: .newlines)
 
@@ -315,20 +302,18 @@ struct MarkdownRenderer {
             let trimmed = line.trimmingCharacters(in: .whitespaces)
             if trimmed.isEmpty { continue }
 
-            // 检查是否是列表项
             if trimmed.hasPrefix("- ") || trimmed.hasPrefix("* ") || trimmed.hasPrefix("+ ") {
                 var bullet = AttributedString("• ")
-                bullet.foregroundColor = .white
+                bullet.foregroundColor = theme.heading2
                 bullet.font = .misans(.medium, size: 16)
                 result.append(bullet)
 
                 let content = String(trimmed.dropFirst(2))
-                let itemContent = parseInlineMarkdown(content, formulas: formulas)
+                let itemContent = parseInlineMarkdown(content, formulas: formulas, theme: theme)
                 result.append(itemContent)
                 result.append(AttributedString("\n"))
             } else {
-                // 可能是列表项的续行
-                let itemContent = parseInlineMarkdown(trimmed, formulas: formulas)
+                let itemContent = parseInlineMarkdown(trimmed, formulas: formulas, theme: theme)
                 result.append(itemContent)
                 result.append(AttributedString("\n"))
             }
@@ -338,7 +323,7 @@ struct MarkdownRenderer {
     }
 
     /// 渲染有序列表
-    private static func renderOrderedList(_ text: String, formulas: [String: LaTeXFormula]) -> AttributedString {
+    private static func renderOrderedList(_ text: String, formulas: [String: LaTeXFormula], theme: MarkdownTheme) -> AttributedString {
         var result = AttributedString()
         let lines = text.components(separatedBy: .newlines)
         var itemNumber = 1
@@ -347,7 +332,6 @@ struct MarkdownRenderer {
             let trimmed = line.trimmingCharacters(in: .whitespaces)
             if trimmed.isEmpty { continue }
 
-            // 检查是否是列表项 (数字. 或 数字) )
             let pattern = "^(\\d+)[.)]\\s"
             if let regex = try? NSRegularExpression(pattern: pattern, options: []),
                let match = regex.firstMatch(in: trimmed, options: [], range: NSRange(location: 0, length: trimmed.utf16.count)),
@@ -359,18 +343,17 @@ struct MarkdownRenderer {
                 }
 
                 var numberStr = AttributedString("\(itemNumber). ")
-                numberStr.foregroundColor = .gray
+                numberStr.foregroundColor = theme.quoteMark
                 numberStr.font = .misans(.semibold, size: 16)
                 result.append(numberStr)
 
                 let afterNumber = String(trimmed[matchRange.upperBound...])
-                let itemContent = parseInlineMarkdown(afterNumber, formulas: formulas)
+                let itemContent = parseInlineMarkdown(afterNumber, formulas: formulas, theme: theme)
                 result.append(itemContent)
                 result.append(AttributedString("\n"))
                 itemNumber += 1
             } else {
-                // 续行
-                let itemContent = parseInlineMarkdown(trimmed, formulas: formulas)
+                let itemContent = parseInlineMarkdown(trimmed, formulas: formulas, theme: theme)
                 result.append(itemContent)
                 result.append(AttributedString("\n"))
             }
@@ -380,24 +363,22 @@ struct MarkdownRenderer {
     }
 
     /// 渲染代码块
-    private static func renderCodeBlock(_ text: String) -> AttributedString {
+    private static func renderCodeBlock(_ text: String, theme: MarkdownTheme) -> AttributedString {
         var lines = text.components(separatedBy: .newlines)
 
-        // 去除开头的 ```
         if lines.first?.trimmingCharacters(in: .whitespaces).hasPrefix("```") == true {
             lines.removeFirst()
         }
 
-        // 去除结尾的 ```
         if lines.last?.trimmingCharacters(in: .whitespaces) == "```" {
             lines.removeLast()
         }
 
         let codeContent = lines.joined(separator: "\n")
         var codeAttr = AttributedString(codeContent)
-        codeAttr.font = .misans(.medium, size: 14)
-        codeAttr.foregroundColor = .gray
-        codeAttr.backgroundColor = .gray.opacity(0.1)
+        codeAttr.font = .system(.body, design: .monospaced)
+        codeAttr.foregroundColor = theme.codeText
+        codeAttr.backgroundColor = theme.codeBackground
 
         return codeAttr
     }
@@ -409,23 +390,23 @@ struct MarkdownRenderer {
         return firstLine.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() == "```mermaid"
     }
 
-    private static func renderMermaidBlock(_ text: String) -> AttributedString {
+    private static func renderMermaidBlock(_ text: String, theme: MarkdownTheme) -> AttributedString {
         let content = fencedCodeContent(from: text)
 
         var result = AttributedString("Mermaid Flowchart\n")
         result.font = .misans(.semibold, size: 16)
-        result.foregroundColor = .white
-        result.backgroundColor = .blue.opacity(0.18)
+        result.foregroundColor = theme.text
+        result.backgroundColor = theme.mermaidBackground
 
         var hint = AttributedString("Diagram rendering is not enabled yet. Source:\n")
         hint.font = .misans(.medium, size: 14)
-        hint.foregroundColor = .gray
+        hint.foregroundColor = theme.mermaidHint
         result.append(hint)
 
         var source = AttributedString(content)
         source.font = .system(.body, design: .monospaced)
-        source.foregroundColor = .white
-        source.backgroundColor = .blue.opacity(0.08)
+        source.foregroundColor = theme.codeText
+        source.backgroundColor = theme.mermaidBackground
         result.append(source)
 
         return result
@@ -443,11 +424,11 @@ struct MarkdownRenderer {
     }
 
     /// 渲染引用块
-    private static func renderBlockQuote(_ text: String, formulas: [String: LaTeXFormula]) -> AttributedString {
+    private static func renderBlockQuote(_ text: String, formulas: [String: LaTeXFormula], theme: MarkdownTheme) -> AttributedString {
         var result = AttributedString()
 
         var quoteSymbol = AttributedString("❝ ")
-        quoteSymbol.foregroundColor = .gray
+        quoteSymbol.foregroundColor = theme.quoteMark
         quoteSymbol.font = .misans(.semibold, size: 16)
         result.append(quoteSymbol)
 
@@ -465,37 +446,37 @@ struct MarkdownRenderer {
             }
         }
 
-        let contentAttr = parseInlineMarkdown(content, formulas: formulas)
+        let contentAttr = parseInlineMarkdown(content, formulas: formulas, theme: theme)
         result.append(contentAttr)
 
         return result
     }
 
     /// 渲染分隔线
-    private static func renderThematicBreak() -> AttributedString {
+    private static func renderThematicBreak(theme: MarkdownTheme) -> AttributedString {
         var line = AttributedString(String(repeating: "─", count: 30))
-        line.foregroundColor = .white
+        line.foregroundColor = theme.thematicBreak
         return line
     }
 
     /// 渲染表格
-    private static func renderTableBlock(_ text: String, formulas: [String: LaTeXFormula]) -> AttributedString {
+    private static func renderTableBlock(_ text: String, formulas: [String: LaTeXFormula], theme: MarkdownTheme) -> AttributedString {
         guard let table = MarkdownTableParser.parse(text) else {
-            return renderParagraph(text, formulas: formulas)
+            return renderParagraph(text, formulas: formulas, theme: theme)
         }
 
         var result = AttributedString()
 
         let columnWidths = tableColumnWidths(table)
-        result += tableBorder(left: "┌", separator: "┬", right: "┐", widths: columnWidths)
-        result += tableRow(table.headers, widths: columnWidths, alignments: table.alignments, formulas: formulas, isHeader: true)
-        result += tableBorder(left: "├", separator: "┼", right: "┤", widths: columnWidths)
+        result += tableBorder(left: "┌", separator: "┬", right: "┐", widths: columnWidths, theme: theme)
+        result += tableRow(table.headers, widths: columnWidths, alignments: table.alignments, formulas: formulas, isHeader: true, theme: theme)
+        result += tableBorder(left: "├", separator: "┼", right: "┤", widths: columnWidths, theme: theme)
 
         for row in table.rows {
-            result += tableRow(row, widths: columnWidths, alignments: table.alignments, formulas: formulas, isHeader: false)
+            result += tableRow(row, widths: columnWidths, alignments: table.alignments, formulas: formulas, isHeader: false, theme: theme)
         }
 
-        result += tableBorder(left: "└", separator: "┴", right: "┘", widths: columnWidths)
+        result += tableBorder(left: "└", separator: "┴", right: "┘", widths: columnWidths, theme: theme)
         return result
     }
 
@@ -511,11 +492,11 @@ struct MarkdownRenderer {
         return widths.map { min(max($0, 4), 48) }
     }
 
-    private static func tableBorder(left: String, separator: String, right: String, widths: [Int]) -> AttributedString {
+    private static func tableBorder(left: String, separator: String, right: String, widths: [Int], theme: MarkdownTheme) -> AttributedString {
         let line = left + widths.map { String(repeating: "─", count: $0 + 2) }.joined(separator: separator) + right + "\n"
         var attr = AttributedString(line)
         attr.font = .system(.body, design: .monospaced)
-        attr.foregroundColor = .gray
+        attr.foregroundColor = theme.tableBorder
         return attr
     }
 
@@ -524,23 +505,24 @@ struct MarkdownRenderer {
         widths: [Int],
         alignments: [MarkdownTable.Alignment],
         formulas: [String: LaTeXFormula],
-        isHeader: Bool
+        isHeader: Bool,
+        theme: MarkdownTheme
     ) -> AttributedString {
         var result = AttributedString("│ ")
         result.font = .system(.body, design: .monospaced)
-        result.foregroundColor = .gray
+        result.foregroundColor = theme.tableBorder
 
         for index in widths.indices {
             let cell = index < cells.count ? cells[index] : ""
             let alignment = index < alignments.count ? alignments[index] : .left
             let paddedCell = padded(cell, width: widths[index], alignment: alignment)
-            var content = parseInlineMarkdown(paddedCell, formulas: formulas)
+            var content = parseInlineMarkdown(paddedCell, formulas: formulas, theme: theme)
             content.font = isHeader ? .misans(.semibold, size: 15) : .misans(.medium, size: 15)
             result += content
 
             var separator = AttributedString(index == widths.indices.last ? " │\n" : " │ ")
             separator.font = .system(.body, design: .monospaced)
-            separator.foregroundColor = .gray
+            separator.foregroundColor = theme.tableBorder
             result += separator
         }
 
@@ -570,67 +552,60 @@ struct MarkdownRenderer {
         }
     }
 
-    /// 行内 markdown 解析（使用原生 AttributedString）
-    private static func parseInlineMarkdown(_ text: String, formulas: [String: LaTeXFormula]) -> AttributedString {
-        // 使用原生 markdown 解析行内元素
+    /// 行内 markdown 解析
+    private static func parseInlineMarkdown(_ text: String, formulas: [String: LaTeXFormula], theme: MarkdownTheme) -> AttributedString {
         do {
             var options = AttributedString.MarkdownParsingOptions()
             options.interpretedSyntax = .inlineOnlyPreservingWhitespace
 
             let attr = try AttributedString(markdown: text, options: options)
 
-            // 应用 MiSans 字体和颜色，并处理特殊格式
-            return applyStyling(attr, formulas: formulas)
+            return applyStyling(attr, formulas: formulas, theme: theme)
         } catch {
-            // 如果解析失败，返回纯文本
             var plain = AttributedString(text)
             plain.font = .misans(.medium, size: 16)
-            plain.foregroundColor = .white
-            return processLaTeXPlaceholders(plain, formulas: formulas)
+            plain.foregroundColor = theme.text
+            return processLaTeXPlaceholders(plain, formulas: formulas, theme: theme)
         }
     }
 
     /// 应用样式到 AttributedString
-    private static func applyStyling(_ attr: AttributedString, formulas: [String: LaTeXFormula]) -> AttributedString {
+    private static func applyStyling(_ attr: AttributedString, formulas: [String: LaTeXFormula], theme: MarkdownTheme) -> AttributedString {
         var result = AttributedString()
 
         for run in attr.runs {
             var runAttr = AttributedString(attr[run.range])
 
-            // 检查是否是链接
             if let link = run.link {
-                runAttr.foregroundColor = .blue
+                runAttr.foregroundColor = theme.link
                 runAttr.underlineStyle = .single
                 runAttr.link = link
                 runAttr.font = .misans(.medium, size: 16)
             }
-            // 检查是否是代码（通过字体特征判断）
             else if let currentFont = run.font, isMonospaceFont(currentFont) {
                 runAttr.font = .system(.body, design: .monospaced)
-                runAttr.backgroundColor = .gray.opacity(0.15)
-                runAttr.foregroundColor = .white
+                runAttr.backgroundColor = theme.inlineCodeBackground
+                runAttr.foregroundColor = theme.inlineCodeText
             }
-            // 检查是否是强调/粗体
             else if run.inlinePresentationIntent?.contains(.stronglyEmphasized) == true {
                 runAttr.font = .misans(.semibold, size: 16)
-                runAttr.foregroundColor = .white
+                runAttr.foregroundColor = theme.bold
             }
             else if run.inlinePresentationIntent?.contains(.emphasized) == true {
                 runAttr.font = .system(size: 16).italic()
-                runAttr.foregroundColor = .white
+                runAttr.foregroundColor = theme.text
             }
             else if run.inlinePresentationIntent?.contains(.code) == true {
                 runAttr.font = .system(.body, design: .monospaced)
-                runAttr.backgroundColor = .gray.opacity(0.15)
-                runAttr.foregroundColor = .white
+                runAttr.backgroundColor = theme.inlineCodeBackground
+                runAttr.foregroundColor = theme.inlineCodeText
             }
             else {
                 runAttr.font = .misans(.medium, size: 16)
-                runAttr.foregroundColor = .white
+                runAttr.foregroundColor = theme.text
             }
 
-            // 处理 LaTeX 占位符
-            runAttr = processLaTeXPlaceholders(runAttr, formulas: formulas)
+            runAttr = processLaTeXPlaceholders(runAttr, formulas: formulas, theme: theme)
 
             result.append(runAttr)
         }
@@ -638,8 +613,8 @@ struct MarkdownRenderer {
         if result.characters.isEmpty {
             result = attr
             result.font = .misans(.medium, size: 16)
-            result.foregroundColor = .white
-            result = processLaTeXPlaceholders(result, formulas: formulas)
+            result.foregroundColor = theme.text
+            result = processLaTeXPlaceholders(result, formulas: formulas, theme: theme)
         }
 
         return result
@@ -653,7 +628,7 @@ struct MarkdownRenderer {
     }
 
     /// 处理 LaTeX 占位符，渲染为公式样式
-    private static func processLaTeXPlaceholders(_ attr: AttributedString, formulas: [String: LaTeXFormula]) -> AttributedString {
+    private static func processLaTeXPlaceholders(_ attr: AttributedString, formulas: [String: LaTeXFormula], theme: MarkdownTheme) -> AttributedString {
         let text = String(attr.characters)
         let pattern = "LATEXFORMULATOKEN(\\d+)END"
 
@@ -679,19 +654,17 @@ struct MarkdownRenderer {
             let index = String(text[indexRange])
             let placeholder = latexPlaceholder(for: Int(index) ?? -1)
 
-            // 添加占位符前的文本
             if currentIndex < matchRange.lowerBound {
                 let beforeText = String(text[currentIndex..<matchRange.lowerBound])
                 var beforeAttr = AttributedString(beforeText)
                 beforeAttr.font = .misans(.medium, size: 16)
-                beforeAttr.foregroundColor = .white
+                beforeAttr.foregroundColor = theme.text
 
-                // 从原始 attr 中复制样式
                 if let originalRange = attr.range(of: beforeText) {
                     let originalSlice = attr[originalRange]
                     if let link = originalSlice.link {
                         beforeAttr.link = link
-                        beforeAttr.foregroundColor = .blue
+                        beforeAttr.foregroundColor = theme.link
                         beforeAttr.underlineStyle = .single
                     }
                 }
@@ -699,17 +672,15 @@ struct MarkdownRenderer {
                 result += beforeAttr
             }
 
-            // 渲染 LaTeX 公式
             if let formula = formulas[placeholder] {
                 let renderedFormula = renderLaTeXText(formula.content)
-                print("🧮 渲染 LaTeX \(formula.isBlock ? "block" : "inline"): \(renderedFormula)")
                 var formulaAttr = AttributedString(renderedFormula)
                 formulaAttr.font = .system(.body, design: .monospaced)
-                formulaAttr.foregroundColor = formula.isBlock ? .yellow.opacity(0.9) : .cyan.opacity(0.9)
+                formulaAttr.foregroundColor = formula.isBlock ? theme.latexBlock : theme.latexInline
 
                 if formula.isBlock {
                     result += AttributedString("\n")
-                    formulaAttr.backgroundColor = .gray.opacity(0.1)
+                    formulaAttr.backgroundColor = theme.latexBackground
                     result += formulaAttr
                     result += AttributedString("\n")
                 } else {
@@ -720,12 +691,11 @@ struct MarkdownRenderer {
             currentIndex = matchRange.upperBound
         }
 
-        // 添加剩余文本
         if currentIndex < text.endIndex {
             let remainingText = String(text[currentIndex...])
             var remainingAttr = AttributedString(remainingText)
             remainingAttr.font = .misans(.medium, size: 16)
-            remainingAttr.foregroundColor = .white
+            remainingAttr.foregroundColor = theme.text
             result += remainingAttr
         }
 

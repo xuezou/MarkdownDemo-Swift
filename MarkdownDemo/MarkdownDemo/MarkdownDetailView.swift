@@ -11,6 +11,7 @@ struct MarkdownDetailView: View {
     let category: TestCategory
     
     @State private var selectedTab = 0
+    @Environment(\.markdownTheme) private var theme
     
     var color: Color {
         Color.fromString(category.color)
@@ -42,7 +43,8 @@ struct MarkdownDetailView: View {
                             markdown: testCase.markdown,
                             content: renderedContent,
                             expectedFeatures: testCase.expectedFeatures,
-                            color: color
+                            color: color,
+                            theme: theme
                         )
                     } else {
                         RawMarkdownView(content: testCase.markdown)
@@ -192,6 +194,7 @@ private struct RenderedContentView: View {
     let content: AttributedString
     let expectedFeatures: [String]
     let color: Color
+    let theme: MarkdownTheme
 
     private var blocks: [MarkdownPreviewBlock] {
         MarkdownPreviewBlockParser.parse(markdown)
@@ -209,14 +212,14 @@ private struct RenderedContentView: View {
                 // 深色背景容器
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.black.opacity(0.9))
+                        .fill(theme.background)
                     
                     ScrollView {
                         LazyVStack(alignment: .leading, spacing: 18) {
                             ForEach(Array(blocks.enumerated()), id: \.offset) { _, block in
                                 switch block {
                                 case .markdown(let markdown):
-                                    Text(MarkdownRenderer.render(markdown: markdown))
+                                    Text(MarkdownRenderer.render(markdown: markdown, theme: theme))
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 case .mermaid(let source):
                                     ScrollView(.horizontal) {
@@ -226,7 +229,7 @@ private struct RenderedContentView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 case .table(let table):
                                     ScrollView(.horizontal) {
-                                        MarkdownTableView(table: table)
+                                        MarkdownTableView(table: table, theme: theme)
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)

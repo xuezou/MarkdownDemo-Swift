@@ -12,6 +12,7 @@ struct MarkdownEditorView: View {
     @State private var document = MarkdownEditorDocument()
     @State private var isOpeningFile = false
     @State private var openErrorMessage: String?
+    @Environment(\.markdownTheme) private var theme
 
     var body: some View {
         NavigationStack {
@@ -19,7 +20,7 @@ struct MarkdownEditorView: View {
                 MarkdownSourcePane(document: document)
                     .frame(minWidth: 320)
 
-                MarkdownPreviewPane(markdown: document.markdown)
+                MarkdownPreviewPane(markdown: document.markdown, theme: theme)
                     .frame(minWidth: 320)
             }
             .navigationTitle(documentTitle)
@@ -99,22 +100,24 @@ struct MarkdownEditorView: View {
 
 private struct MarkdownSourcePane: View {
     @Bindable var document: MarkdownEditorDocument
+    @Environment(\.markdownTheme) private var theme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            PaneHeader(title: "Source", systemImage: "square.and.pencil")
+            PaneHeader(title: "Source", systemImage: "square.and.pencil", theme: theme)
 
             TextEditor(text: $document.markdown)
                 .font(.system(.body, design: .monospaced))
                 .scrollContentBackground(.hidden)
                 .padding(12)
-                .background(Color.editorSourceBackground)
+                .background(theme.editorBackground)
         }
     }
 }
 
 private struct MarkdownPreviewPane: View {
     let markdown: String
+    let theme: MarkdownTheme
 
     private var blocks: [MarkdownPreviewBlock] {
         MarkdownPreviewBlockParser.parse(markdown)
@@ -122,14 +125,14 @@ private struct MarkdownPreviewPane: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            PaneHeader(title: "Preview", systemImage: "eye")
+            PaneHeader(title: "Preview", systemImage: "eye", theme: theme)
 
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 18) {
                     ForEach(Array(blocks.enumerated()), id: \.offset) { _, block in
                         switch block {
                         case .markdown(let markdown):
-                            Text(MarkdownRenderer.render(markdown: markdown))
+                            Text(MarkdownRenderer.render(markdown: markdown, theme: theme))
                                 .textSelection(.enabled)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         case .mermaid(let source):
@@ -140,7 +143,7 @@ private struct MarkdownPreviewPane: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         case .table(let table):
                             ScrollView(.horizontal) {
-                                MarkdownTableView(table: table)
+                                MarkdownTableView(table: table, theme: theme)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -150,7 +153,7 @@ private struct MarkdownPreviewPane: View {
                 .padding(20)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .background(Color.black.opacity(0.9))
+            .background(theme.background)
         }
     }
 }
@@ -158,6 +161,7 @@ private struct MarkdownPreviewPane: View {
 private struct PaneHeader: View {
     let title: String
     let systemImage: String
+    var theme: MarkdownTheme = .light
 
     var body: some View {
         Label(title, systemImage: systemImage)
@@ -165,25 +169,7 @@ private struct PaneHeader: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
-            .background(Color.editorHeaderBackground)
-    }
-}
-
-private extension Color {
-    static var editorHeaderBackground: Color {
-        #if os(macOS)
-        Color(nsColor: .windowBackgroundColor)
-        #else
-        Color(.systemBackground)
-        #endif
-    }
-
-    static var editorSourceBackground: Color {
-        #if os(macOS)
-        Color(nsColor: .textBackgroundColor)
-        #else
-        Color(.systemBackground)
-        #endif
+            .background(theme.editorHeaderBackground)
     }
 }
 
