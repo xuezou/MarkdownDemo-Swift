@@ -13,7 +13,9 @@ xcuserdata/
 # Xcode build products
 build/
 DerivedData/
+dist/
 *.xcarchive
+*.dmg
 *.dSYM
 *.dSYM.zip
 *.ipa

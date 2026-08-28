@@ -408,3 +408,48 @@ iOS 上做自定义 Markdown 渲染，可以不用一上来就写完整 parser�
 
 对于自定义需求不高的项目，优先选择 `swift-markdown-ui` 这类成熟库。  
 对于自定义需求很高的项目，可以参考这个 demo，从标题、列表、代码块、表格、公式这些核心能力开始，一点点把 Markdown 渲染器改造成适合自己产品的版本。
+
+---
+
+## 发布流程（macOS DMG）
+
+版本号以 git tag 为唯一来源（语义化版本 `vX.Y.Z`），出包由本地脚本完成，产物为签名 + 公证后的 DMG。
+
+### 一次性配置
+
+1. 钥匙串中已安装 **Developer ID Application** 证书（脚本会自动探测）。
+2. 配置 notarytool 公证凭证（Apple ID 需开启 app-specific password）：
+
+   ```bash
+   xcrun notarytool store-credentials notarytool \
+     --apple-id "you@example.com" \
+     --team-id "TEAMID" \
+     --password "app-specific-password"
+   ```
+
+### 发版步骤
+
+```bash
+# 1. 合并代码到 main 后打 tag（X.Y.Z 遵循语义化版本）
+git tag -a v1.0.0 -m "release v1.0.0"
+git push origin v1.0.0
+
+# 2. 出包：自动构建 Release → Developer ID 签名 → 打 DMG → 公证 → 装订票据
+./scripts/release.sh
+```
+
+产物：`dist/MarkdownDemo-V1.0.0-<YYYYMMDD>.dmg`（日期为构建当天，同一天重复出包同名覆盖；DMG 内含 app 与 `/Applications` 拖拽快捷方式）。
+
+本地验证打包流程可跳过公证（产物不可对外分发，Gatekeeper 会拦截）：
+
+```bash
+./scripts/release.sh 0.0.0 --skip-notarize
+```
+
+发布到 GitHub Releases（可选，手动执行）：
+
+```bash
+gh release create v1.0.0 dist/MarkdownDemo-V1.0.0-*.dmg --title "v1.0.0" --generate-notes
+```
+
+> 说明：`build/`、`dist/`、`*.dmg` 均已在 `.gitignore` 中忽略；签名身份可用 `SIGN_IDENTITY` 环境变量覆盖，公证 profile 名可用 `NOTARY_KEYCHAIN_PROFILE` 覆盖。
