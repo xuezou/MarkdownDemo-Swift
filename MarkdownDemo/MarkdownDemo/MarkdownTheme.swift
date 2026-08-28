@@ -72,6 +72,38 @@ struct MarkdownTheme {
         editorBackground:    Color(white: 0.98),
         editorHeaderBackground: Color(white: 0.96)
     )
+
+    // MARK: - Dark Theme
+
+    static let dark = MarkdownTheme(
+        background:          Color(white: 0.08),
+        text:                Color(white: 0.92),
+        heading1:            Color(red: 0.45, green: 0.62, blue: 1.0),
+        heading2:            Color(red: 0.72, green: 0.52, blue: 1.0),
+        heading3:            Color(red: 0.30, green: 0.85, blue: 0.62),
+        heading4:            Color(red: 1.0, green: 0.70, blue: 0.25),
+        link:                Color(red: 0.45, green: 0.62, blue: 1.0),
+        bold:                Color(white: 0.98),
+        codeText:            Color(red: 0.82, green: 0.86, blue: 0.94),
+        codeBackground:      Color(white: 0.16),
+        inlineCodeText:      Color(red: 0.60, green: 0.75, blue: 1.0),
+        inlineCodeBackground:Color(red: 0.18, green: 0.22, blue: 0.35),
+        blockquoteBorder:    Color(red: 0.45, green: 0.62, blue: 1.0),
+        blockquoteText:      Color(red: 0.65, green: 0.68, blue: 0.72),
+        thematicBreak:       Color(white: 0.22),
+        quoteMark:           Color(red: 0.50, green: 0.54, blue: 0.60),
+        tableBorder:         Color(white: 0.20),
+        tableHeaderBackground:Color(white: 0.14),
+        tableRowBackground:  Color(white: 0.10),
+        tableAlternateRow:   Color(white: 0.13),
+        latexBlock:          Color(red: 1.0, green: 0.70, blue: 0.25),
+        latexInline:         Color(red: 0.30, green: 0.85, blue: 0.62),
+        latexBackground:     Color(white: 0.16),
+        mermaidBackground:   Color(white: 0.14),
+        mermaidHint:         Color(red: 0.65, green: 0.68, blue: 0.72),
+        editorBackground:    Color(white: 0.10),
+        editorHeaderBackground: Color(white: 0.14)
+    )
 }
 
 // MARK: - Environment
