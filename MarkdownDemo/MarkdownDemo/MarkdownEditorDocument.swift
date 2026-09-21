@@ -9,7 +9,7 @@ import UniformTypeIdentifiers
 
 struct MarkdownEditorDocument: FileDocument {
     nonisolated static let defaultMarkdown = """
-    # Markdown Lab
+    # Mano
 
     Start writing on the left. The rendered preview updates on the right.
 

@@ -23,7 +23,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 PROJECT="$ROOT_DIR/MarkdownDemo/MarkdownDemo.xcodeproj"
 SCHEME="MarkdownDemo"
-APP_NAME="MarkdownDemo"
+APP_NAME="Mano"
 
 BUILD_DIR="$ROOT_DIR/build"
 STAGING_DIR="$BUILD_DIR/dmg-staging"

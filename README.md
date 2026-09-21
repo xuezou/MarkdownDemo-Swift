@@ -1,4 +1,8 @@
-# iOS 自定义 Markdown 渲染实践：从成品库到可魔改 Demo
+# Mano
+
+面向程序员的开源原生 Markdown 工具：macOS 双栏编辑与阅读，iPhone 保留渲染 Demo 列表。
+
+## iOS 自定义 Markdown 渲染实践：从成品库到可魔改 Demo
 
 如果你的 Markdown 渲染需求比较常规，比如标题、列表、引用、代码块、图片、链接等基础能力，建议优先尝试更成熟的成品库，例如 `swift-markdown-ui`。这类库已经处理了大量边界情况，接入成本低，也更适合快速上线。
 
@@ -312,7 +316,7 @@ Resources/TestCases/Special/05_数学公式.md
 但 Xcode 打包后可能被拷贝到 app bundle 根目录：
 
 ```text
-MarkdownDemo.app/05_数学公式.md
+Mano.app/05_数学公式.md
 ```
 
 所以加载逻辑不能只找：
@@ -454,7 +458,7 @@ git push origin v1.0.0
 ./scripts/release.sh
 ```
 
-产物：`dist/MarkdownDemo-V1.0.0-<YYYYMMDD>.dmg`（日期为构建当天，同一天重复出包同名覆盖；DMG 内含 app 与 `/Applications` 拖拽快捷方式）。
+产物：`dist/Mano-V1.0.0-<YYYYMMDD>.dmg`（日期为构建当天，同一天重复出包同名覆盖；DMG 内含 app 与 `/Applications` 拖拽快捷方式）。
 
 本地验证打包流程可跳过公证（产物不可对外分发，Gatekeeper 会拦截）：
 
@@ -465,7 +469,7 @@ git push origin v1.0.0
 发布到 GitHub Releases（可选，手动执行）：
 
 ```bash
-gh release create v1.0.0 dist/MarkdownDemo-V1.0.0-*.dmg --title "v1.0.0" --generate-notes
+gh release create v1.0.0 dist/Mano-V1.0.0-*.dmg --title "v1.0.0" --generate-notes
 ```
 
 > 说明：`build/`、`dist/`、`*.dmg` 均已在 `.gitignore` 中忽略；签名身份可用 `SIGN_IDENTITY` 环境变量覆盖，公证 profile 名可用 `NOTARY_KEYCHAIN_PROFILE` 覆盖。

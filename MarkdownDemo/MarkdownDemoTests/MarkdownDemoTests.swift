@@ -82,7 +82,7 @@ struct MarkdownDemoTests {
     @Test func defaultDocumentContainsWelcomeMarkdown() async throws {
         let document = MarkdownEditorDocument()
 
-        #expect(document.markdown.contains("# Markdown Lab"))
+        #expect(document.markdown.contains("# Mano"))
     }
 
     @Test func documentDecodesUTF8MarkdownData() async throws {
