@@ -6,25 +6,51 @@
 import SwiftUI
 
 #if os(macOS)
+import AppKit
 import UniformTypeIdentifiers
 
 struct MarkdownEditorView: View {
-    @State private var document = MarkdownEditorDocument()
+    @Binding var document: MarkdownEditorDocument
     @State private var isOpeningFile = false
     @State private var openErrorMessage: String?
+    @State private var mode = EditorMode.split
+    @StateObject private var editor = MarkdownNativeEditorController()
     @Environment(\.markdownTheme) private var theme
+    @Environment(\.openDocument) private var openDocument
 
     var body: some View {
         NavigationStack {
-            HSplitView {
-                MarkdownSourcePane(document: document)
-                    .frame(minWidth: 320)
-
-                MarkdownPreviewPane(markdown: document.markdown, theme: theme)
-                    .frame(minWidth: 320)
+            VStack(spacing: 0) {
+                editorContent
+                Divider()
+                MarkdownStatisticsBar(markdown: document.markdown)
             }
-            .navigationTitle(documentTitle)
             .toolbar {
+                ToolbarItem {
+                    Picker("Editor Mode", selection: $mode) {
+                        Label("Edit", systemImage: "square.and.pencil").tag(EditorMode.edit)
+                        Label("Split", systemImage: "rectangle.split.2x1").tag(EditorMode.split)
+                        Label("Read", systemImage: "book").tag(EditorMode.read)
+                    }
+                    .pickerStyle(.segmented)
+                    .labelStyle(.iconOnly)
+                    .help("Edit / Split / Read")
+                    .accessibilityIdentifier("editor.mode")
+                }
+                ToolbarItem {
+                    Button { showFind(replace: false) } label: {
+                        Label("Find", systemImage: "magnifyingglass")
+                    }
+                    .keyboardShortcut("f", modifiers: .command)
+                    .help("Find")
+                }
+                ToolbarItem {
+                    Button { showFind(replace: true) } label: {
+                        Label("Replace", systemImage: "arrow.triangle.2.circlepath")
+                    }
+                    .keyboardShortcut("h", modifiers: [.command, .shift])
+                    .help("Find and Replace")
+                }
                 ToolbarItem {
                     Button {
                         isOpeningFile = true
@@ -35,11 +61,10 @@ struct MarkdownEditorView: View {
                 }
 
                 ToolbarItem {
-                    Label(
-                        document.isDirty ? "Modified" : "Saved",
-                        systemImage: document.isDirty ? "circle.fill" : "checkmark.circle"
-                    )
-                    .foregroundStyle(document.isDirty ? .orange : .secondary)
+                    Button(action: saveDocument) {
+                        Label("Save", systemImage: "square.and.arrow.down")
+                    }
+                    .help("Save Markdown File")
                 }
             }
             .fileImporter(
@@ -58,16 +83,35 @@ struct MarkdownEditorView: View {
         }
     }
 
-    private var documentTitle: String {
-        document.isDirty ? "\(document.displayName) - Modified" : document.displayName
+    @ViewBuilder private var editorContent: some View {
+        switch mode {
+        case .split:
+            HSplitView {
+                sourcePane.frame(minWidth: 280)
+                previewPane.frame(minWidth: 280)
+            }
+        case .edit:
+            sourcePane
+        case .read:
+            previewPane
+        }
+    }
+
+    private var sourcePane: some View {
+        MarkdownSourcePane(markdown: $document.markdown, editor: editor)
+    }
+
+    private var previewPane: some View {
+        MarkdownPreviewPane(markdown: document.markdown, theme: theme)
+    }
+
+    private func showFind(replace: Bool) {
+        if mode == .read { mode = .split }
+        editor.find(replace: replace)
     }
 
     private static var openableContentTypes: [UTType] {
-        var types: [UTType] = [.plainText, .text]
-        if let markdownType = UTType(filenameExtension: "md") {
-            types.insert(markdownType, at: 0)
-        }
-        return types
+        MarkdownEditorDocument.readableContentTypes
     }
 
     private var openErrorBinding: Binding<Bool> {
@@ -82,35 +126,60 @@ struct MarkdownEditorView: View {
     }
 
     private func openFile(_ result: Result<[URL], Error>) {
-        do {
-            guard let url = try result.get().first else { return }
-            let didStartAccess = url.startAccessingSecurityScopedResource()
-            defer {
-                if didStartAccess {
-                    url.stopAccessingSecurityScopedResource()
-                }
+        Task { @MainActor in
+            do {
+                guard let url = try result.get().first else { return }
+                try await openDocument(at: url)
+            } catch {
+                openErrorMessage = error.localizedDescription
             }
-
-            try document.load(from: url)
-        } catch {
-            openErrorMessage = error.localizedDescription
         }
+    }
+
+    private func saveDocument() {
+        NSApp.sendAction(#selector(NSDocument.save(_:)), to: nil, from: nil)
     }
 }
 
 private struct MarkdownSourcePane: View {
-    @Bindable var document: MarkdownEditorDocument
+    @Binding var markdown: String
+    let editor: MarkdownNativeEditorController
     @Environment(\.markdownTheme) private var theme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             PaneHeader(title: "Source", systemImage: "square.and.pencil", theme: theme)
 
-            TextEditor(text: $document.markdown)
-                .font(.system(.body, design: .monospaced))
-                .scrollContentBackground(.hidden)
-                .padding(12)
-                .background(theme.editorBackground)
+            MarkdownNativeEditor(text: $markdown, controller: editor, theme: theme)
+        }
+    }
+}
+
+private enum EditorMode: Hashable {
+    case edit, split, read
+}
+
+private struct MarkdownStatisticsBar: View {
+    let markdown: String
+    @State private var statistics = MarkdownTextStatistics("")
+
+    var body: some View {
+        HStack(spacing: 16) {
+            Spacer(minLength: 0)
+            Text("\(statistics.words) words")
+            Text("\(statistics.characters) characters")
+            Text("\(statistics.lines) lines")
+        }
+        .font(.caption.monospacedDigit())
+        .foregroundStyle(.secondary)
+        .padding(.horizontal, 12)
+        .frame(height: 28)
+        .accessibilityIdentifier("editor.statistics")
+        .task(id: markdown) {
+            do {
+                try await Task.sleep(for: .milliseconds(150))
+                statistics = MarkdownTextStatistics(markdown)
+            } catch { }
         }
     }
 }
@@ -174,6 +243,6 @@ private struct PaneHeader: View {
 }
 
 #Preview {
-    MarkdownEditorView()
+    MarkdownEditorView(document: .constant(MarkdownEditorDocument()))
 }
 #endif

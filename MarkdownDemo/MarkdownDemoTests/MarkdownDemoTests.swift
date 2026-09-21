@@ -7,7 +7,9 @@
 
 import CoreGraphics
 import Foundation
+import SwiftUI
 import Testing
+import UniformTypeIdentifiers
 @testable import MarkdownDemo
 
 struct MarkdownDemoTests {
@@ -77,70 +79,47 @@ struct MarkdownDemoTests {
         end
     """
 
-    @Test func defaultLaunchDestinationMatchesPlatform() async throws {
-        #if os(macOS)
-        guard case .editor = MarkdownAppDestination.default else {
-            Issue.record("macOS should launch the Markdown editor")
-            return
-        }
-        #else
-        guard case .caseList = MarkdownAppDestination.default else {
-            Issue.record("iOS should launch the demo case list")
-            return
-        }
-        #endif
-    }
-
-    @MainActor
-    @Test func defaultDocumentStartsCleanWithWelcomeMarkdown() async throws {
+    @Test func defaultDocumentContainsWelcomeMarkdown() async throws {
         let document = MarkdownEditorDocument()
 
-        #expect(document.displayName == "Untitled.md")
-        #expect(document.isDirty == false)
         #expect(document.markdown.contains("# Markdown Lab"))
     }
 
-    @MainActor
-    @Test func editingMarkdownMarksDocumentDirty() async throws {
-        let document = MarkdownEditorDocument(markdown: "# Start")
-
-        document.markdown = "# Changed"
-
-        #expect(document.isDirty == true)
-        #expect(document.markdown == "# Changed")
-    }
-
-    @MainActor
-    @Test func loadingMarkdownFromFileResetsDirtyStateAndUsesFileName() async throws {
-        let url = FileManager.default.temporaryDirectory
-            .appendingPathComponent(UUID().uuidString)
-            .appendingPathExtension("md")
-        try "# Loaded".write(to: url, atomically: true, encoding: .utf8)
-
-        let document = MarkdownEditorDocument(markdown: "# Draft")
-        try document.load(from: url)
+    @Test func documentDecodesUTF8MarkdownData() async throws {
+        let document = try MarkdownEditorDocument(data: Data("# Loaded".utf8))
 
         #expect(document.markdown == "# Loaded")
-        #expect(document.fileURL == url)
-        #expect(document.displayName == url.lastPathComponent)
-        #expect(document.isDirty == false)
     }
 
-    @MainActor
-    @Test func savingMarkdownWritesFileAndClearsDirtyState() async throws {
-        let url = FileManager.default.temporaryDirectory
-            .appendingPathComponent(UUID().uuidString)
-            .appendingPathExtension("md")
-        let document = MarkdownEditorDocument(markdown: "# Save Me")
-        document.markdown = "# Saved"
+    @Test func documentRejectsNonUTF8Data() async throws {
+        #expect(throws: MarkdownEditorDocumentError.invalidTextEncoding) {
+            try MarkdownEditorDocument(data: Data([0xFF]))
+        }
+    }
 
-        try document.save(to: url)
+    @Test func documentEncodesCurrentMarkdownAsUTF8() async throws {
+        let document = MarkdownEditorDocument(markdown: "# Saved\n\n正文")
 
-        let saved = try String(contentsOf: url, encoding: .utf8)
-        #expect(saved == "# Saved")
-        #expect(document.fileURL == url)
-        #expect(document.displayName == url.lastPathComponent)
-        #expect(document.isDirty == false)
+        #expect(document.fileData == Data("# Saved\n\n正文".utf8))
+    }
+
+    @Test func documentSupportsMarkdownAndPlainTextFiles() async throws {
+        let readableTypes = MarkdownEditorDocument.readableContentTypes
+        let writableTypes = MarkdownEditorDocument.writableContentTypes
+
+        #expect(readableTypes.contains(.plainText))
+        #expect(writableTypes.contains(.plainText))
+        #expect(readableTypes.contains { $0.preferredFilenameExtension == "md" })
+        #expect(writableTypes.contains { $0.preferredFilenameExtension == "md" })
+        #if os(macOS)
+        #expect(UTType(filenameExtension: "markdown") == readableTypes.first)
+        #endif
+    }
+
+    @Test func documentProvidesNativeFileDocumentContract() async throws {
+        func acceptsFileDocument<Document: FileDocument>(_: Document.Type) {}
+
+        acceptsFileDocument(MarkdownEditorDocument.self)
     }
 
     @MainActor

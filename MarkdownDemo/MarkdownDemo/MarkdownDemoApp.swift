@@ -10,11 +10,19 @@ import SwiftUI
 @main
 struct MarkdownDemoApp: App {
     var body: some Scene {
+        #if os(macOS)
+        DocumentGroup(newDocument: MarkdownEditorDocument()) { file in
+            MarkdownThemeRoot {
+                MarkdownEditorView(document: file.$document)
+            }
+        }
+        #else
         WindowGroup {
             MarkdownThemeRoot {
                 ContentView()
             }
         }
+        #endif
     }
 }
 

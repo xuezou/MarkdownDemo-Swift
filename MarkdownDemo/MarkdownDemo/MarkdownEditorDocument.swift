@@ -4,10 +4,11 @@
 //
 
 import Foundation
+import SwiftUI
+import UniformTypeIdentifiers
 
-@Observable
-final class MarkdownEditorDocument {
-    static let defaultMarkdown = """
+struct MarkdownEditorDocument: FileDocument {
+    nonisolated static let defaultMarkdown = """
     # Markdown Lab
 
     Start writing on the left. The rendered preview updates on the right.
@@ -21,62 +22,54 @@ final class MarkdownEditorDocument {
     ```
     """
 
-    var markdown: String {
-        didSet {
-            guard isTrackingChanges else { return }
-            isDirty = markdown != savedMarkdown
-        }
+    nonisolated static var readableContentTypes: [UTType] {
+        [markdownContentType, .plainText]
     }
 
-    private(set) var fileURL: URL?
-    private(set) var isDirty: Bool
-
-    private var savedMarkdown: String
-    private var isTrackingChanges = true
-
-    var displayName: String {
-        fileURL?.lastPathComponent ?? "Untitled.md"
+    nonisolated static var writableContentTypes: [UTType] {
+        readableContentTypes
     }
 
-    init(markdown: String = MarkdownEditorDocument.defaultMarkdown, fileURL: URL? = nil) {
+    var markdown: String
+
+    nonisolated init(markdown: String = MarkdownEditorDocument.defaultMarkdown) {
         self.markdown = markdown
-        self.fileURL = fileURL
-        self.savedMarkdown = markdown
-        self.isDirty = false
     }
 
-    func load(from url: URL) throws {
-        let loadedMarkdown = try String(contentsOf: url, encoding: .utf8)
-        replaceContent(loadedMarkdown, fileURL: url, markDirty: false)
-    }
-
-    func save(to url: URL? = nil) throws {
-        let destination = url ?? fileURL
-        guard let destination else {
-            throw MarkdownEditorDocumentError.missingFileURL
+    nonisolated init(data: Data) throws {
+        guard let markdown = String(data: data, encoding: .utf8) else {
+            throw MarkdownEditorDocumentError.invalidTextEncoding
         }
-
-        try markdown.write(to: destination, atomically: true, encoding: .utf8)
-        replaceContent(markdown, fileURL: destination, markDirty: false)
+        self.init(markdown: markdown)
     }
 
-    private func replaceContent(_ newMarkdown: String, fileURL: URL?, markDirty: Bool) {
-        isTrackingChanges = false
-        markdown = newMarkdown
-        self.fileURL = fileURL
-        savedMarkdown = newMarkdown
-        isDirty = markDirty
-        isTrackingChanges = true
+    nonisolated init(configuration: ReadConfiguration) throws {
+        guard let data = configuration.file.regularFileContents else {
+            throw MarkdownEditorDocumentError.invalidTextEncoding
+        }
+        try self.init(data: data)
+    }
+
+    nonisolated var fileData: Data {
+        Data(markdown.utf8)
+    }
+
+    nonisolated func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        FileWrapper(regularFileWithContents: fileData)
+    }
+
+    nonisolated private static var markdownContentType: UTType {
+        UTType(filenameExtension: "md") ?? .plainText
     }
 }
 
 enum MarkdownEditorDocumentError: LocalizedError, Equatable {
-    case missingFileURL
+    case invalidTextEncoding
 
     var errorDescription: String? {
         switch self {
-        case .missingFileURL:
-            return "Choose a file location before saving this Markdown document."
+        case .invalidTextEncoding:
+            return "The selected file is not valid UTF-8 text."
         }
     }
 }
