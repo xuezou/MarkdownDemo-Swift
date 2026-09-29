@@ -9,11 +9,12 @@ enum MarkdownPreviewBlock: Equatable {
     case markdown(String)
     case mermaid(String)
     case table(MarkdownTable)
+    case code(language: String, source: String)
 }
 
 enum MarkdownPreviewBlockParser {
     nonisolated static func parse(_ markdown: String) -> [MarkdownPreviewBlock] {
-        let lines = markdown.components(separatedBy: .newlines)
+        let lines = markdown.components(separatedBy: "\n")
         var blocks: [MarkdownPreviewBlock] = []
         var markdownBuffer: [String] = []
         var index = 0
@@ -29,24 +30,28 @@ enum MarkdownPreviewBlockParser {
 
         while index < lines.count {
             let line = lines[index]
-            if line.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() == "```mermaid" {
+            if let fence = openingFence(line) {
                 flushMarkdown()
                 index += 1
-
-                var mermaidLines: [String] = []
+                let start = index
+                var codeLines: [String] = []
                 while index < lines.count {
                     let currentLine = lines[index]
-                    if currentLine.trimmingCharacters(in: .whitespacesAndNewlines) == "```" {
+                    let trimmed = currentLine.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if hasFenceIndentation(currentLine) && trimmed.count >= fence.count &&
+                        trimmed.allSatisfy({ $0 == fence.marker }) {
                         break
                     }
-                    mermaidLines.append(currentLine)
+                    codeLines.append(currentLine)
                     index += 1
                 }
-
-                blocks.append(.mermaid(
-                    mermaidLines.joined(separator: "\n")
-                        .trimmingCharacters(in: .whitespacesAndNewlines)
-                ))
+                var source = codeLines.joined(separator: "\n")
+                if index < lines.count && index > start { source += "\n" }
+                if fence.language.lowercased() == "mermaid" {
+                    blocks.append(.mermaid(source.trimmingCharacters(in: .whitespacesAndNewlines)))
+                } else {
+                    blocks.append(.code(language: fence.language, source: source))
+                }
             } else if let tableBlock = parseTableBlock(lines, startingAt: index) {
                 flushMarkdown()
                 blocks.append(.table(tableBlock.table))
@@ -60,6 +65,22 @@ enum MarkdownPreviewBlockParser {
 
         flushMarkdown()
         return blocks
+    }
+
+    nonisolated private static func openingFence(_ line: String) -> (marker: Character, count: Int, language: String)? {
+        guard hasFenceIndentation(line) else { return nil }
+        let trimmed = line.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let marker = trimmed.first, marker == "`" || marker == "~" else { return nil }
+        let count = trimmed.prefix(while: { $0 == marker }).count
+        guard count >= 3 else { return nil }
+        let info = trimmed.dropFirst(count)
+        guard marker != "`" || !info.contains("`") else { return nil }
+        return (marker, count, info.split(whereSeparator: { $0.isWhitespace }).first.map(String.init) ?? "")
+    }
+
+    nonisolated private static func hasFenceIndentation(_ line: String) -> Bool {
+        let indentation = line.prefix(while: { $0 == " " || $0 == "\t" })
+        return indentation.count <= 3 && !indentation.contains("\t")
     }
 
     nonisolated private static func parseTableBlock(

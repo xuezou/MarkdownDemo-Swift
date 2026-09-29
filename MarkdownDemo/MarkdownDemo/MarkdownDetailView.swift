@@ -220,7 +220,10 @@ private struct RenderedContentView: View {
                                 switch block {
                                 case .markdown(let markdown):
                                     Text(MarkdownRenderer.render(markdown: markdown, theme: theme))
+                                        .lineSpacing(4)
                                         .frame(maxWidth: .infinity, alignment: .leading)
+                                case .code(let language, let source):
+                                    MarkdownCodeBlockView(language: language, source: source, theme: theme)
                                 case .mermaid(let source):
                                     ScrollView(.horizontal) {
                                         MermaidDiagramView(source: source)

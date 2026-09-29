@@ -15,7 +15,8 @@ struct MarkdownEditorView: View {
     @State private var openErrorMessage: String?
     @State private var mode = EditorMode.split
     @StateObject private var editor = MarkdownNativeEditorController()
-    @Environment(\.markdownTheme) private var theme
+    @AppStorage("editor.darkPreview") private var darkPreview = false
+    private var theme: MarkdownTheme { darkPreview ? .dark : .light }
     @Environment(\.openDocument) private var openDocument
 
     var body: some View {
@@ -26,6 +27,14 @@ struct MarkdownEditorView: View {
                 MarkdownStatisticsBar(markdown: document.markdown)
             }
             .toolbar {
+                ToolbarItem {
+                    Button {
+                        darkPreview.toggle()
+                    } label: {
+                        Label("Preview Appearance", systemImage: darkPreview ? "sun.max" : "moon")
+                    }
+                    .help(darkPreview ? "Use Light Preview" : "Use Dark Preview")
+                }
                 ToolbarItem {
                     Picker("Editor Mode", selection: $mode) {
                         Label("Edit", systemImage: "square.and.pencil").tag(EditorMode.edit)
@@ -99,10 +108,14 @@ struct MarkdownEditorView: View {
 
     private var sourcePane: some View {
         MarkdownSourcePane(markdown: $document.markdown, editor: editor)
+            .markdownTheme(.dark)
+            .environment(\.colorScheme, .dark)
     }
 
     private var previewPane: some View {
         MarkdownPreviewPane(markdown: document.markdown, theme: theme)
+            .markdownTheme(theme)
+            .environment(\.colorScheme, darkPreview ? .dark : .light)
     }
 
     private func showFind(replace: Bool) {
@@ -202,8 +215,11 @@ private struct MarkdownPreviewPane: View {
                         switch block {
                         case .markdown(let markdown):
                             Text(MarkdownRenderer.render(markdown: markdown, theme: theme))
+                                .lineSpacing(4)
                                 .textSelection(.enabled)
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                        case .code(let language, let source):
+                            MarkdownCodeBlockView(language: language, source: source, theme: theme)
                         case .mermaid(let source):
                             ScrollView(.horizontal) {
                                 MermaidDiagramView(source: source)
@@ -235,6 +251,7 @@ private struct PaneHeader: View {
     var body: some View {
         Label(title, systemImage: systemImage)
             .font(.headline)
+            .foregroundStyle(theme.text)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16)
             .padding(.vertical, 10)

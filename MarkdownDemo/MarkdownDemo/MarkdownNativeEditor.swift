@@ -90,6 +90,11 @@ struct MarkdownNativeEditor: NSViewRepresentable {
         textView.textColor = NSColor(theme.text)
         textView.insertionPointColor = NSColor(theme.text)
         textView.backgroundColor = NSColor(theme.editorBackground)
+        scrollView.appearance = NSAppearance(named: .darkAqua)
+        textView.selectedTextAttributes = [
+            .backgroundColor: NSColor.selectedTextBackgroundColor,
+            .foregroundColor: NSColor.selectedTextColor
+        ]
     }
 
 }
