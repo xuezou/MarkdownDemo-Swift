@@ -433,7 +433,11 @@ macOS 版本使用系统文档窗口管理 Markdown 文件：
 
 ## 发布流程（macOS DMG）
 
-版本号以 git tag 为唯一来源（语义化版本 `vX.Y.Z`），出包由本地脚本完成，产物为签名 + 公证后的 DMG。
+当前目标版本为 **0.1.0**。修复递增补丁版本（如 0.1.1），新增功能递增次版本（如 0.2.0）；稳定节点才打包发布，不为每次 commit 生成安装包。
+
+工程的 Debug / Release 版本、发布 tag（vX.Y.Z）与 DMG 内应用版本必须一致，脚本会检查。正式包要求干净工作区及当前提交上的匹配 tag，构建号使用提交计数。版本变更记录见 [CHANGELOG.md](CHANGELOG.md)。
+
+安装时把 DMG 中的 Mano 拖入“应用程序”。应用声明支持 .md、.markdown，可在 Finder 的“打开方式”中选择 Mano；不会主动替换现有默认程序。首次安装后可启动一次应用再检查菜单。是否实际出现在菜单中需在安装环境验证，不能仅凭 plist 检查认定。
 
 ### 一次性配置
 
@@ -451,25 +455,28 @@ macOS 版本使用系统文档窗口管理 Markdown 文件：
 
 ```bash
 # 1. 合并代码到 main 后打 tag（X.Y.Z 遵循语义化版本）
-git tag -a v1.0.0 -m "release v1.0.0"
-git push origin v1.0.0
+git tag -a v0.1.0 -m "release v0.1.0"
 
 # 2. 出包：自动构建 Release → Developer ID 签名 → 打 DMG → 公证 → 装订票据
 ./scripts/release.sh
+# 3. 签名、公证、安装验证通过后，再推送版本 tag
+git push origin v0.1.0
 ```
 
-产物：`dist/Mano-V1.0.0-<YYYYMMDD>.dmg`（日期为构建当天，同一天重复出包同名覆盖；DMG 内含 app 与 `/Applications` 拖拽快捷方式）。
+产物：`dist/Mano-V0.1.0-<YYYYMMDD>.dmg`（日期为构建当天，同一天重复出包同名覆盖；DMG 内含 app 与 `/Applications` 拖拽快捷方式）。
 
 本地验证打包流程可跳过公证（产物不可对外分发，Gatekeeper 会拦截）：
 
 ```bash
-./scripts/release.sh 0.0.0 --skip-notarize
+./scripts/release.sh 0.1.0 --skip-notarize
 ```
 
 发布到 GitHub Releases（可选，手动执行）：
 
 ```bash
-gh release create v1.0.0 dist/Mano-V1.0.0-*.dmg --title "v1.0.0" --generate-notes
+gh release create v0.1.0 dist/Mano-V0.1.0-YYYYMMDD.dmg --title "Mano v0.1.0" --notes-file CHANGELOG.md
 ```
+
+预览包文件名带 -unnotarized，仍有 Developer ID 签名，但未经公证，不能作为正式包发布。缺少公证凭证时先完成上面的一次性配置，或通过 NOTARY_KEYCHAIN_PROFILE 指定已有 profile。发布命令中的日期需替换为实际产物日期，不使用会混入预览包的通配符。
 
 > 说明：`build/`、`dist/`、`*.dmg` 均已在 `.gitignore` 中忽略；签名身份可用 `SIGN_IDENTITY` 环境变量覆盖，公证 profile 名可用 `NOTARY_KEYCHAIN_PROFILE` 覆盖。

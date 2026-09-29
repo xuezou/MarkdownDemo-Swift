@@ -60,8 +60,23 @@ if [[ -z "$VERSION" ]]; then
 fi
 
 BUILD_NUMBER="$(git -C "$ROOT_DIR" rev-list --count HEAD)"
+PROJECT_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :objects:2F698B5A2FBEF10100A76A7C:buildSettings:MARKETING_VERSION' "$PROJECT/project.pbxproj")"
+DEBUG_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :objects:2F698B592FBEF10100A76A7C:buildSettings:MARKETING_VERSION' "$PROJECT/project.pbxproj")"
+if [[ "$VERSION" != "$PROJECT_VERSION" || "$VERSION" != "$DEBUG_VERSION" ]]; then
+    echo "error: 请求版本 ${VERSION} 与工程版本不一致（Debug=${DEBUG_VERSION}, Release=${PROJECT_VERSION}）。" >&2
+    exit 1
+fi
 DATE="$(date +%Y%m%d)"
 ARTIFACT_NAME="${APP_NAME}-V${VERSION}-${DATE}"
+if [[ "$SKIP_NOTARIZE" == "true" ]]; then
+    ARTIFACT_NAME="${ARTIFACT_NAME}-unnotarized"
+else
+    TAG="$(git -C "$ROOT_DIR" describe --tags --exact-match --match "v$VERSION" 2>/dev/null || true)"
+    if [[ "$TAG" != "v$VERSION" || -n "$(git -C "$ROOT_DIR" status --porcelain)" ]]; then
+        echo "error: 正式出包要求干净工作区，且 HEAD 必须对应 v$VERSION tag。" >&2
+        exit 1
+    fi
+fi
 
 echo "==> 版本: $VERSION (build $BUILD_NUMBER)"
 echo "==> 产物: ${ARTIFACT_NAME}.dmg"
@@ -71,6 +86,7 @@ if [[ -n "$(git -C "$ROOT_DIR" status --porcelain)" ]]; then
 fi
 
 # ---- 签名身份探测 ----
+bash "$SCRIPT_DIR/check-document-types.sh"
 # xcodebuild 分发构建用通用身份名 "Developer ID Application"（Manual 签名），
 # Team ID 从钥匙串里实际证书的 "(TEAMID)" 后缀自动提取。
 DEVELOPER_ID_LINE="$(security find-identity -v -p codesigning | grep 'Developer ID Application:' | head -1 || true)"
@@ -79,12 +95,15 @@ if [[ -z "$DEVELOPER_ID_LINE" ]]; then
     echo "       请在钥匙串中安装 Developer ID Application 证书后重试。" >&2
     exit 1
 fi
-SIGN_IDENTITY="$(echo "$DEVELOPER_ID_LINE" | grep -o '"[^"]*"' | tr -d '"')"
+SIGN_IDENTITY="${SIGN_IDENTITY:-$(echo "$DEVELOPER_ID_LINE" | grep -o '"[^"]*"' | tr -d '"')}"
 TEAM_ID="${TEAM_ID:-}"
 if [[ -z "$TEAM_ID" ]]; then
     TEAM_ID="$(echo "$SIGN_IDENTITY" | sed -n 's/.*(\(.*\)).*/\1/p')"
 fi
 NOTARY_PROFILE="${NOTARY_KEYCHAIN_PROFILE:-notarytool}"
+if [[ "$SKIP_NOTARIZE" != "true" ]]; then
+    xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" >/dev/null
+fi
 
 echo "==> 签名身份: $SIGN_IDENTITY"
 echo "==> Team ID : $TEAM_ID"
@@ -101,13 +120,20 @@ xcodebuild \
     CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
     CODE_SIGN_STYLE=Manual \
     DEVELOPMENT_TEAM="$TEAM_ID" \
-    'CODE_SIGN_IDENTITY=Developer ID Application' \
+    CODE_SIGN_IDENTITY="$SIGN_IDENTITY" \
     ENABLE_HARDENED_RUNTIME=YES \
     clean build >/dev/null
 
 APP_PATH="$DERIVED_DATA/Build/Products/Release/${APP_NAME}.app"
 if [[ ! -d "$APP_PATH" ]]; then
     echo "error: 构建产物不存在: $APP_PATH" >&2
+    exit 1
+fi
+ACTUAL_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP_PATH/Contents/Info.plist")"
+bash "$SCRIPT_DIR/check-document-types.sh" "$APP_PATH/Contents/Info.plist"
+ACTUAL_BUILD="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$APP_PATH/Contents/Info.plist")"
+if [[ "$ACTUAL_VERSION" != "$VERSION" || "$ACTUAL_BUILD" != "$BUILD_NUMBER" ]]; then
+    echo "error: App 内版本或构建号与安装包不一致。" >&2
     exit 1
 fi
 
@@ -126,8 +152,10 @@ ln -s /Applications "$STAGING_DIR/Applications"
 # ---- 4. 生成压缩 DMG ----
 echo "==> [4/6] 生成 DMG ..."
 mkdir -p "$DIST_DIR"
-DMG_PATH="$DIST_DIR/${ARTIFACT_NAME}.dmg"
-rm -f "$DMG_PATH"
+FINAL_DMG_PATH="$DIST_DIR/${ARTIFACT_NAME}.dmg"
+PACKAGE_DIR="$(mktemp -d "$DIST_DIR/.package.XXXXXX")"
+trap 'rm -rf "$PACKAGE_DIR"' EXIT
+DMG_PATH="$PACKAGE_DIR/${ARTIFACT_NAME}.dmg"
 hdiutil create \
     -volname "$ARTIFACT_NAME" \
     -srcfolder "$STAGING_DIR" \
@@ -140,7 +168,7 @@ if [[ "$SKIP_NOTARIZE" == "true" ]]; then
     echo "warning: 已跳过公证，此 DMG 不可对外分发（对方机器 Gatekeeper 会拦截）。" >&2
 else
     echo "==> [5/6] 提交 Apple 公证（notarytool --wait，可能需要几分钟）..."
-    if security find-generic-password -s "com.apple.gke.notary.tool" -a "$NOTARY_PROFILE" >/dev/null 2>&1; then
+    if xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" >/dev/null; then
         xcrun notarytool submit "$DMG_PATH" \
             --keychain-profile "$NOTARY_PROFILE" \
             --wait
@@ -161,7 +189,10 @@ fi
 
 # ---- 6. 最终校验 ----
 echo "==> [6/6] 最终校验 ..."
-hdiutil verify "$DMG_PATH" >/dev/null && echo "DMG 校验通过"
+hdiutil verify "$DMG_PATH" >/dev/null
+echo "DMG 校验通过"
+mv -f "$DMG_PATH" "$FINAL_DMG_PATH"
+DMG_PATH="$FINAL_DMG_PATH"
 
 # ---- 清理中间产物 ----
 rm -rf "$STAGING_DIR"
