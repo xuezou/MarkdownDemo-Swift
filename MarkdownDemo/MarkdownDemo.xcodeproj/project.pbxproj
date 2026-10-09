@@ -28,7 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2F698B372FBEF10000A76A7C /* MarkdownDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkdownDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F698B372FBEF10000A76A7C /* Mano.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mano.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F698B442FBEF10100A76A7C /* MarkdownDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarkdownDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F698B4E2FBEF10100A76A7C /* MarkdownDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarkdownDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -103,7 +103,7 @@
 		2F698B382FBEF10000A76A7C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2F698B372FBEF10000A76A7C /* MarkdownDemo.app */,
+				2F698B372FBEF10000A76A7C /* Mano.app */,
 				2F698B442FBEF10100A76A7C /* MarkdownDemoTests.xctest */,
 				2F698B4E2FBEF10100A76A7C /* MarkdownDemoUITests.xctest */,
 			);
@@ -133,7 +133,7 @@
 				2F698B672FBEF67A00A76A7C /* Markdown */,
 			);
 			productName = MarkdownDemo;
-			productReference = 2F698B372FBEF10000A76A7C /* MarkdownDemo.app */;
+			productReference = 2F698B372FBEF10000A76A7C /* Mano.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2F698B432FBEF10100A76A7C /* MarkdownDemoTests */ = {
@@ -420,7 +420,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ManoAppIcon;
-				INFOPLIST_KEY_CFBundleDisplayName = Mano;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -429,6 +428,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				"GENERATE_INFOPLIST_FILE[sdk=macosx*]" = NO;
 				"INFOPLIST_FILE[sdk=macosx*]" = "MarkdownDemo/Info-macOS.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Mano;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -441,8 +441,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = snow.leopard.MarkdownDemo;
-				PRODUCT_NAME = Mano;
 				PRODUCT_MODULE_NAME = MarkdownDemo;
+				PRODUCT_NAME = Mano;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
@@ -459,7 +459,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ManoAppIcon;
-				INFOPLIST_KEY_CFBundleDisplayName = Mano;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -468,6 +467,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				"GENERATE_INFOPLIST_FILE[sdk=macosx*]" = NO;
 				"INFOPLIST_FILE[sdk=macosx*]" = "MarkdownDemo/Info-macOS.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Mano;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -480,8 +480,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = snow.leopard.MarkdownDemo;
-				PRODUCT_NAME = Mano;
 				PRODUCT_MODULE_NAME = MarkdownDemo;
+				PRODUCT_NAME = Mano;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
