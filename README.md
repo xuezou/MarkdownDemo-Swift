@@ -2,6 +2,8 @@
 
 面向程序员的开源原生 Markdown 工具：macOS 双栏编辑与阅读，iPhone 保留渲染 Demo 列表。
 
+**macOS 下载：**[前往 GitHub Releases 下载 Mano DMG](https://github.com/xuezou/MarkdownDemo-Swift/releases)。目前 0.1.0 只有本机未公证预览包，正式安装包尚未发布；正式 DMG 上传后会显示在此页面。
+
 ## iOS 自定义 Markdown 渲染实践：从成品库到可魔改 Demo
 
 如果你的 Markdown 渲染需求比较常规，比如标题、列表、引用、代码块、图片、链接等基础能力，建议优先尝试更成熟的成品库，例如 `swift-markdown-ui`。这类库已经处理了大量边界情况，接入成本低，也更适合快速上线。
