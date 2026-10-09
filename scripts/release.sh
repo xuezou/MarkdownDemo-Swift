@@ -121,6 +121,8 @@ xcodebuild \
     CODE_SIGN_STYLE=Manual \
     DEVELOPMENT_TEAM="$TEAM_ID" \
     CODE_SIGN_IDENTITY="$SIGN_IDENTITY" \
+    CODE_SIGN_INJECT_BASE_ENTITLEMENTS=NO \
+    OTHER_CODE_SIGN_FLAGS=--timestamp \
     ENABLE_HARDENED_RUNTIME=YES \
     clean build >/dev/null
 
@@ -168,17 +170,20 @@ if [[ "$SKIP_NOTARIZE" == "true" ]]; then
     echo "warning: 已跳过公证，此 DMG 不可对外分发（对方机器 Gatekeeper 会拦截）。" >&2
 else
     echo "==> [5/6] 提交 Apple 公证（notarytool --wait，可能需要几分钟）..."
-    if xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" >/dev/null; then
-        xcrun notarytool submit "$DMG_PATH" \
-            --keychain-profile "$NOTARY_PROFILE" \
-            --wait
-    else
-        echo "error: 未找到 notarytool 凭证 profile '$NOTARY_PROFILE'。" >&2
-        echo "       请先执行（一次性）:" >&2
-        echo "       xcrun notarytool store-credentials $NOTARY_PROFILE \\" >&2
-        echo "         --apple-id 'you@example.com' --team-id '$TEAM_ID' \\" >&2
-        echo "         --password 'app-specific-password'" >&2
-        echo "       或临时跳过公证: ./scripts/release.sh $VERSION --skip-notarize" >&2
+    if ! xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" >/dev/null; then
+        echo "error: 无法读取 notarytool profile '$NOTARY_PROFILE'。" >&2
+        exit 1
+    fi
+
+    NOTARY_RESULT="$(xcrun notarytool submit "$DMG_PATH" \
+        --keychain-profile "$NOTARY_PROFILE" \
+        --wait \
+        --output-format json)"
+    NOTARY_STATUS="$(printf '%s' "$NOTARY_RESULT" | plutil -extract status raw -)"
+    if [[ "$NOTARY_STATUS" != "Accepted" ]]; then
+        SUBMISSION_ID="$(printf '%s' "$NOTARY_RESULT" | plutil -extract id raw -)"
+        echo "error: Apple 公证状态为 $NOTARY_STATUS（提交 ID: $SUBMISSION_ID），不会装订或发布此 DMG。" >&2
+        xcrun notarytool log "$SUBMISSION_ID" --keychain-profile "$NOTARY_PROFILE" || true
         exit 1
     fi
 
