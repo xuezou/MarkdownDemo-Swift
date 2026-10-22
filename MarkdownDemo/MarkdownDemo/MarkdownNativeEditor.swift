@@ -8,7 +8,9 @@ final class MarkdownNativeEditorController: NSObject, ObservableObject, NSTextVi
     let scrollView: NSScrollView
     let textView: NSTextView
     var text: Binding<String>?
+    @Published private(set) var selectionLocation = 0
     private var pendingFindAction: NSTextFinder.Action?
+    private var pendingNavigationOffset: Int?
 
     override init() {
         scrollView = NSScrollView()
@@ -16,7 +18,10 @@ final class MarkdownNativeEditorController: NSObject, ObservableObject, NSTextVi
         textView = nativeTextView
         super.init()
         textView.delegate = self
-        nativeTextView.onWindowAttached = { [weak self] in self?.performPendingFind() }
+        nativeTextView.onWindowAttached = { [weak self] in
+            self?.performPendingNavigation()
+            self?.performPendingFind()
+        }
         scrollView.hasVerticalScroller = true
         scrollView.autohidesScrollers = true
         scrollView.drawsBackground = false
@@ -45,6 +50,20 @@ final class MarkdownNativeEditorController: NSObject, ObservableObject, NSTextVi
         performPendingFind()
     }
 
+    func navigate(toUTF16Offset offset: Int, focus: Bool) {
+        pendingNavigationOffset = offset
+        performPendingNavigation()
+        if focus { textView.window?.makeFirstResponder(textView) }
+    }
+
+    private func performPendingNavigation() {
+        guard let offset = pendingNavigationOffset, textView.window != nil else { return }
+        pendingNavigationOffset = nil
+        let range = NSRange(location: max(0, min(offset, textView.string.utf16.count)), length: 0)
+        textView.setSelectedRange(range)
+        textView.scrollRangeToVisible(range)
+    }
+
     private func performPendingFind() {
         guard let action = pendingFindAction, let window = textView.window else { return }
         pendingFindAction = nil
@@ -56,6 +75,20 @@ final class MarkdownNativeEditorController: NSObject, ObservableObject, NSTextVi
 
     func textDidChange(_ notification: Notification) {
         text?.wrappedValue = textView.string
+        publishSelection()
+    }
+
+    func textViewDidChangeSelection(_ notification: Notification) {
+        publishSelection()
+    }
+
+    private func publishSelection() {
+        // NSTextView also sends selection notifications during SwiftUI view updates.
+        DispatchQueue.main.async { [weak self] in
+            guard let self, !self.textView.hasMarkedText() else { return }
+            let location = self.textView.selectedRange().location
+            if self.selectionLocation != location { self.selectionLocation = location }
+        }
     }
 }
 

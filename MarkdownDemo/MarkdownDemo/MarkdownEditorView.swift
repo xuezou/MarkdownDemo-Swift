@@ -16,65 +16,39 @@ struct MarkdownEditorView: View {
     @State private var mode = EditorMode.split
     @StateObject private var editor = MarkdownNativeEditorController()
     @AppStorage("editor.darkPreview") private var darkPreview = false
+    @AppStorage("editor.showOutline") private var showOutline = true
+    @AppStorage("editor.followSelection") private var followSelection = true
+    @State private var documentIndex: MarkdownDocumentIndex
+    @State private var previewTarget: MarkdownPreviewTarget?
+    @State private var sourceOffset = 0
     private var theme: MarkdownTheme { darkPreview ? .dark : .light }
     @Environment(\.openDocument) private var openDocument
+
+    init(document: Binding<MarkdownEditorDocument>) {
+        _document = document
+        _documentIndex = State(initialValue: MarkdownDocumentIndex(document.wrappedValue.markdown))
+    }
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                editorContent
+                HStack(spacing: 0) {
+                    if showOutline {
+                        MarkdownOutlineView(
+                            headings: documentIndex.headings,
+                            selectedID: documentIndex.heading(atUTF16Offset: sourceOffset)?.id,
+                            navigate: navigate
+                        )
+                        Divider()
+                    }
+                    editorContent
+                }
                 Divider()
                 MarkdownStatisticsBar(markdown: document.markdown)
             }
             .toolbar {
-                ToolbarItem {
-                    Button {
-                        darkPreview.toggle()
-                    } label: {
-                        Label("Preview Appearance", systemImage: darkPreview ? "sun.max" : "moon")
-                    }
-                    .help(darkPreview ? "Use Light Preview" : "Use Dark Preview")
-                }
-                ToolbarItem {
-                    Picker("Editor Mode", selection: $mode) {
-                        Label("Edit", systemImage: "square.and.pencil").tag(EditorMode.edit)
-                        Label("Split", systemImage: "rectangle.split.2x1").tag(EditorMode.split)
-                        Label("Read", systemImage: "book").tag(EditorMode.read)
-                    }
-                    .pickerStyle(.segmented)
-                    .labelStyle(.iconOnly)
-                    .help("Edit / Split / Read")
-                    .accessibilityIdentifier("editor.mode")
-                }
-                ToolbarItem {
-                    Button { showFind(replace: false) } label: {
-                        Label("Find", systemImage: "magnifyingglass")
-                    }
-                    .keyboardShortcut("f", modifiers: .command)
-                    .help("Find")
-                }
-                ToolbarItem {
-                    Button { showFind(replace: true) } label: {
-                        Label("Replace", systemImage: "arrow.triangle.2.circlepath")
-                    }
-                    .keyboardShortcut("h", modifiers: [.command, .shift])
-                    .help("Find and Replace")
-                }
-                ToolbarItem {
-                    Button {
-                        isOpeningFile = true
-                    } label: {
-                        Label("Open", systemImage: "folder")
-                    }
-                    .help("Open Markdown File")
-                }
-
-                ToolbarItem {
-                    Button(action: saveDocument) {
-                        Label("Save", systemImage: "square.and.arrow.down")
-                    }
-                    .help("Save Markdown File")
-                }
+                navigationToolbar
+                documentToolbar
             }
             .fileImporter(
                 isPresented: $isOpeningFile,
@@ -89,6 +63,82 @@ struct MarkdownEditorView: View {
             } message: {
                 Text(openErrorMessage ?? "The selected file could not be opened.")
             }
+            .onChange(of: document.markdown) {
+                documentIndex = MarkdownDocumentIndex(document.markdown)
+                updatePreviewPosition()
+            }
+            .onChange(of: editor.selectionLocation) {
+                sourceOffset = editor.selectionLocation
+                updatePreviewPosition()
+            }
+            .onChange(of: followSelection) { updatePreviewPosition(force: true) }
+            .onChange(of: mode) { updatePreviewPosition(force: true) }
+        }
+        .frame(minWidth: 760, minHeight: 360)
+    }
+
+    @ToolbarContentBuilder private var navigationToolbar: some ToolbarContent {
+        ToolbarItem {
+            Toggle(isOn: $showOutline) {
+                Label("Outline", systemImage: "sidebar.left")
+            }
+            .toggleStyle(.button)
+            .help(showOutline ? "Hide Outline" : "Show Outline")
+            .accessibilityIdentifier("editor.toggleOutline")
+        }
+        ToolbarItem {
+            Toggle(isOn: $followSelection) {
+                Label("Follow Editing Position", systemImage: "link")
+            }
+            .toggleStyle(.button)
+            .help(followSelection ? "Stop Following Editing Position" : "Follow Editing Position")
+            .accessibilityIdentifier("editor.followSelection")
+        }
+        ToolbarItem {
+            Button { darkPreview.toggle() } label: {
+                Label("Preview Appearance", systemImage: darkPreview ? "sun.max" : "moon")
+            }
+            .help(darkPreview ? "Use Light Preview" : "Use Dark Preview")
+        }
+        ToolbarItem {
+            Picker("Editor Mode", selection: $mode) {
+                Label("Edit", systemImage: "square.and.pencil").tag(EditorMode.edit)
+                Label("Split", systemImage: "rectangle.split.2x1").tag(EditorMode.split)
+                Label("Read", systemImage: "book").tag(EditorMode.read)
+            }
+            .pickerStyle(.segmented)
+            .labelStyle(.iconOnly)
+            .help("Edit / Split / Read")
+            .accessibilityIdentifier("editor.mode")
+        }
+    }
+
+    @ToolbarContentBuilder private var documentToolbar: some ToolbarContent {
+        ToolbarItem {
+            Button { showFind(replace: false) } label: {
+                Label("Find", systemImage: "magnifyingglass")
+            }
+            .keyboardShortcut("f", modifiers: .command)
+            .help("Find")
+        }
+        ToolbarItem {
+            Button { showFind(replace: true) } label: {
+                Label("Replace", systemImage: "arrow.triangle.2.circlepath")
+            }
+            .keyboardShortcut("h", modifiers: [.command, .shift])
+            .help("Find and Replace")
+        }
+        ToolbarItem {
+            Button { isOpeningFile = true } label: {
+                Label("Open", systemImage: "folder")
+            }
+            .help("Open Markdown File")
+        }
+        ToolbarItem {
+            Button(action: saveDocument) {
+                Label("Save", systemImage: "square.and.arrow.down")
+            }
+            .help("Save Markdown File")
         }
     }
 
@@ -113,9 +163,25 @@ struct MarkdownEditorView: View {
     }
 
     private var previewPane: some View {
-        MarkdownPreviewPane(markdown: document.markdown, theme: theme)
+        MarkdownPreviewPane(index: documentIndex, theme: theme, target: previewTarget) { anchor in
+            guard let heading = documentIndex.heading(forAnchor: anchor) else { return false }
+            navigate(heading)
+            return true
+        }
             .markdownTheme(theme)
             .environment(\.colorScheme, darkPreview ? .dark : .light)
+    }
+
+    private func navigate(_ heading: MarkdownOutlineHeading) {
+        sourceOffset = heading.id
+        previewTarget = MarkdownPreviewTarget(blockID: heading.blockID)
+        editor.navigate(toUTF16Offset: heading.id, focus: mode != .read)
+    }
+
+    private func updatePreviewPosition(force: Bool = false) {
+        guard followSelection, mode == .split,
+              let block = documentIndex.block(atUTF16Offset: sourceOffset) else { return }
+        previewTarget = .following(blockID: block.id, previous: previewTarget, force: force)
     }
 
     private func showFind(replace: Bool) {
@@ -193,52 +259,6 @@ private struct MarkdownStatisticsBar: View {
                 try await Task.sleep(for: .milliseconds(150))
                 statistics = MarkdownTextStatistics(markdown)
             } catch { }
-        }
-    }
-}
-
-private struct MarkdownPreviewPane: View {
-    let markdown: String
-    let theme: MarkdownTheme
-
-    private var blocks: [MarkdownPreviewBlock] {
-        MarkdownPreviewBlockParser.parse(markdown)
-    }
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            PaneHeader(title: "Preview", systemImage: "eye", theme: theme)
-
-            ScrollView {
-                LazyVStack(alignment: .leading, spacing: 18) {
-                    ForEach(Array(blocks.enumerated()), id: \.offset) { _, block in
-                        switch block {
-                        case .markdown(let markdown):
-                            Text(MarkdownRenderer.render(markdown: markdown, theme: theme))
-                                .lineSpacing(4)
-                                .textSelection(.enabled)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        case .code(let language, let source):
-                            MarkdownCodeBlockView(language: language, source: source, theme: theme)
-                        case .mermaid(let source):
-                            ScrollView(.horizontal) {
-                                MermaidDiagramView(source: source)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        case .table(let table):
-                            ScrollView(.horizontal) {
-                                MarkdownTableView(table: table, theme: theme)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                    }
-                }
-                .padding(20)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .background(theme.background)
         }
     }
 }
