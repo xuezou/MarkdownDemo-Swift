@@ -2,7 +2,18 @@
 
 面向程序员的开源原生 Markdown 工具：macOS 双栏编辑与阅读，iPhone 保留渲染 Demo 列表。
 
-**macOS 下载：**[前往 GitHub Releases 下载 Mano DMG](https://github.com/xuezou/MarkdownDemo-Swift/releases)。目前 0.1.0 只有本机未公证预览包，正式安装包尚未发布；正式 DMG 上传后会显示在此页面。
+**macOS 下载：**[下载 Mano 0.0.2 DMG](https://github.com/xuezou/MarkdownDemo-Swift/releases/download/v0.0.2/Mano-V0.0.2-20261022.dmg) · [全部版本](https://github.com/xuezou/MarkdownDemo-Swift/releases)。DMG 已完成 Developer ID 签名和 Apple 公证；`Source code` 是源码压缩包。
+
+## macOS 编辑器
+
+- 支持打开和保存 Markdown 文件，以及源码、双栏、阅读三种模式。
+- 提供原生查找替换、字数统计、预览明暗切换和代码块复制。
+- 标题大纲支持层级展示、收起侧栏，以及跳转到对应源码和预览内容。
+- 双栏模式可跟随编辑位置定位预览内容块，工具栏可关闭联动。
+- 支持文内标题链接，例如 `[安装](#安装)`；重复标题依次使用 `-1`、`-2` 后缀。
+- 表格、Mermaid 流程图和时序图采用原生组件展示。
+
+大纲与定位通过 [MarkdownDocumentIndex](MarkdownDemo/MarkdownDemo/MarkdownDocumentIndex.swift) 复用 `swift-markdown` 的语法树与源码范围，编辑操作仍由原生 `NSTextView` 处理。当前联动以内容块为单位；段落、代码块和图表内部不做逐行同步。
 
 ## iOS 自定义 Markdown 渲染实践：从成品库到可魔改 Demo
 
@@ -439,7 +450,7 @@ macOS 版本使用系统文档窗口管理 Markdown 文件：
 
 ## 发布流程（macOS DMG）
 
-当前目标版本为 **0.1.0**。修复递增补丁版本（如 0.1.1），新增功能递增次版本（如 0.2.0）；稳定节点才打包发布，不为每次 commit 生成安装包。
+当前发布版本为 **0.0.2**。稳定节点才打包发布，不为每次 commit 生成安装包。
 
 工程的 Debug / Release 版本、发布 tag（vX.Y.Z）与 DMG 内应用版本必须一致，脚本会检查。正式包要求干净工作区及当前提交上的匹配 tag，构建号使用提交计数。版本变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
@@ -461,26 +472,26 @@ macOS 版本使用系统文档窗口管理 Markdown 文件：
 
 ```bash
 # 1. 合并代码到 main 后打 tag（X.Y.Z 遵循语义化版本）
-git tag -a v0.1.0 -m "release v0.1.0"
+git tag -a v0.0.2 -m "release v0.0.2"
 
 # 2. 出包：自动构建 Release → Developer ID 签名 → 打 DMG → 公证 → 装订票据
 ./scripts/release.sh
 # 3. 签名、公证、安装验证通过后，再推送版本 tag
-git push origin v0.1.0
+git push origin v0.0.2
 ```
 
-产物：`dist/Mano-V0.1.0-<YYYYMMDD>.dmg`（日期为构建当天，同一天重复出包同名覆盖；DMG 内含 app 与 `/Applications` 拖拽快捷方式）。
+产物：`dist/Mano-V0.0.2-<YYYYMMDD>.dmg`（日期为构建当天，同一天重复出包同名覆盖；DMG 内含 app 与 `/Applications` 拖拽快捷方式）。
 
 本地验证打包流程可跳过公证（产物不可对外分发，Gatekeeper 会拦截）：
 
 ```bash
-./scripts/release.sh 0.1.0 --skip-notarize
+./scripts/release.sh 0.0.2 --skip-notarize
 ```
 
 发布到 GitHub Releases（可选，手动执行）：
 
 ```bash
-gh release create v0.1.0 dist/Mano-V0.1.0-YYYYMMDD.dmg --title "Mano v0.1.0" --notes-file CHANGELOG.md
+gh release create v0.0.2 dist/Mano-V0.0.2-YYYYMMDD.dmg --verify-tag --latest --title "Mano v0.0.2" --notes-file CHANGELOG.md
 ```
 
 预览包文件名带 -unnotarized，仍有 Developer ID 签名，但未经公证，不能作为正式包发布。缺少公证凭证时先完成上面的一次性配置，或通过 NOTARY_KEYCHAIN_PROFILE 指定已有 profile。发布命令中的日期需替换为实际产物日期，不使用会混入预览包的通配符。
