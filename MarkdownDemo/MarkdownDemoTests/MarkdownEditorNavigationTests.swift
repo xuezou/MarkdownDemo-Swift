@@ -63,6 +63,44 @@ struct MarkdownEditorNavigationTests {
         #expect(reenabled.requestID != original.requestID)
         #expect(MarkdownPreviewTarget.following(blockID: 5, previous: original, force: false).blockID == 5)
     }
+
+    @Test func insertingImagesUsesNativeUndoAndKeepsIndependentParagraphs() {
+        let editor = MarkdownNativeEditorController()
+        let window = NavigationTestWindow(contentRect: NSRect(x: 0, y: 0, width: 500, height: 400),
+                                          styleMask: [.titled], backing: .buffered, defer: false)
+        window.contentView = editor.scrollView
+        window.makeFirstResponder(editor.textView)
+        let original = "标题😀\n\nReplace\n\nAfter"
+        editor.textView.string = original
+        let range = (original as NSString).range(of: "Replace")
+        #expect(editor.insertImageReferences(["![截图](assets/a.png)"], replacing: range, expectedText: original))
+        #expect(editor.textView.string == "标题😀\n\n![截图](assets/a.png)\n\nAfter")
+        editor.textView.undoManager?.undo()
+        #expect(editor.textView.string == original)
+        editor.textView.undoManager?.redo()
+        #expect(editor.textView.string.contains("![截图]"))
+        window.contentView = nil
+    }
+
+    @Test func staleAndInvalidImageInsertionsCannotOverwriteEdits() {
+        let editor = MarkdownNativeEditorController()
+        editor.textView.string = "New text"
+        let reference = ["![](assets/a.png)"]
+        #expect(!editor.insertImageReferences(reference, replacing: NSRange(location: 0, length: 3), expectedText: "Old text"))
+        #expect(!editor.insertImageReferences(reference, replacing: NSRange(location: Int.max, length: 5), expectedText: "New text"))
+        #expect(editor.textView.string == "New text")
+    }
+
+    @Test func canonicallyEqualTextWithDifferentUTF16CannotReuseAnOldSelection() {
+        let editor = MarkdownNativeEditorController()
+        let original = "\u{00E9}AB"
+        let changed = "e\u{0301}AB"
+        #expect(original == changed)
+        editor.textView.string = changed
+        #expect(!editor.insertImageReferences(["![](assets/a.png)"],
+                                             replacing: NSRange(location: 2, length: 1), expectedText: original))
+        #expect(Array(editor.textView.string.utf16) == Array(changed.utf16))
+    }
 }
 
 private final class NavigationTestWindow: NSWindow {

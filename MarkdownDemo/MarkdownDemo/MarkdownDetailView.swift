@@ -224,6 +224,8 @@ private struct RenderedContentView: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 case .code(let language, let source):
                                     MarkdownCodeBlockView(language: language, source: source, theme: theme)
+                                case .image(let reference):
+                                    MarkdownImageView(reference: reference)
                                 case .mermaid(let source):
                                     ScrollView(.horizontal) {
                                         MermaidDiagramView(source: source)

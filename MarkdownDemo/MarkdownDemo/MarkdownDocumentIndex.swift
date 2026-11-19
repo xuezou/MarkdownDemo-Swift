@@ -39,6 +39,10 @@ struct MarkdownDocumentIndex {
                     id: indexedBlocks.count, sourceRange: sourceRange,
                     content: .markdown(Self.headingSource(heading, raw: raw))
                 ))
+            } else if let image = MarkdownImageReference.standalone(in: node) {
+                indexedBlocks.append(MarkdownIndexedBlock(
+                    id: indexedBlocks.count, sourceRange: sourceRange, content: .image(image)
+                ))
             } else {
                 Self.appendBlocks(raw, startingAt: start, to: &indexedBlocks)
             }

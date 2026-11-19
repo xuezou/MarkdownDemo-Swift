@@ -11,10 +11,13 @@ import UniformTypeIdentifiers
 
 struct MarkdownEditorView: View {
     @Binding var document: MarkdownEditorDocument
+    let fileURL: URL?
     @State private var isOpeningFile = false
     @State private var openErrorMessage: String?
     @State private var mode = EditorMode.split
     @StateObject private var editor = MarkdownNativeEditorController()
+    @StateObject private var imageImporter = MarkdownImageImportController()
+    @State private var resourceNotice: String?
     @AppStorage("editor.darkPreview") private var darkPreview = false
     @AppStorage("editor.showOutline") private var showOutline = true
     @AppStorage("editor.followSelection") private var followSelection = true
@@ -24,8 +27,9 @@ struct MarkdownEditorView: View {
     private var theme: MarkdownTheme { darkPreview ? .dark : .light }
     @Environment(\.openDocument) private var openDocument
 
-    init(document: Binding<MarkdownEditorDocument>) {
+    init(document: Binding<MarkdownEditorDocument>, fileURL: URL? = nil) {
         _document = document
+        self.fileURL = fileURL
         _documentIndex = State(initialValue: MarkdownDocumentIndex(document.wrappedValue.markdown))
     }
 
@@ -56,12 +60,14 @@ struct MarkdownEditorView: View {
                 allowsMultipleSelection: false,
                 onCompletion: openFile
             )
-            .alert("Could Not Open File", isPresented: openErrorBinding) {
+            .alert(alertTitle, isPresented: openErrorBinding) {
                 Button("OK", role: .cancel) {
                     openErrorMessage = nil
+                    imageImporter.errorMessage = nil
+                    resourceNotice = nil
                 }
             } message: {
-                Text(openErrorMessage ?? "The selected file could not be opened.")
+                Text(openErrorMessage ?? imageImporter.errorMessage ?? resourceNotice ?? "")
             }
             .onChange(of: document.markdown) {
                 documentIndex = MarkdownDocumentIndex(document.markdown)
@@ -73,6 +79,9 @@ struct MarkdownEditorView: View {
             }
             .onChange(of: followSelection) { updatePreviewPosition(force: true) }
             .onChange(of: mode) { updatePreviewPosition(force: true) }
+            .onAppear { imageImporter.documentURL = fileURL }
+            .onChange(of: fileURL) { previous, current in documentURLChanged(from: previous, to: current) }
+            .onDisappear { imageImporter.cancel() }
         }
         .frame(minWidth: 760, minHeight: 360)
     }
@@ -114,6 +123,14 @@ struct MarkdownEditorView: View {
     }
 
     @ToolbarContentBuilder private var documentToolbar: some ToolbarContent {
+        ToolbarItem {
+            Button { imageImporter.chooseImages(editor: editor) } label: {
+                Label("Insert Image", systemImage: "photo.badge.plus")
+            }
+            .disabled(mode == .read || imageImporter.isBusy)
+            .help("Insert Image")
+            .accessibilityIdentifier("editor.insertImage")
+        }
         ToolbarItem {
             Button { showFind(replace: false) } label: {
                 Label("Find", systemImage: "magnifyingglass")
@@ -157,13 +174,15 @@ struct MarkdownEditorView: View {
     }
 
     private var sourcePane: some View {
-        MarkdownSourcePane(markdown: $document.markdown, editor: editor)
+        MarkdownSourcePane(markdown: $document.markdown, editor: editor) { urls, range in
+            imageImporter.add(urls, at: range, editor: editor)
+        }
             .markdownTheme(.dark)
             .environment(\.colorScheme, .dark)
     }
 
     private var previewPane: some View {
-        MarkdownPreviewPane(index: documentIndex, theme: theme, target: previewTarget) { anchor in
+        MarkdownPreviewPane(index: documentIndex, theme: theme, target: previewTarget, documentURL: fileURL) { anchor in
             guard let heading = documentIndex.heading(forAnchor: anchor) else { return false }
             navigate(heading)
             return true
@@ -193,12 +212,31 @@ struct MarkdownEditorView: View {
         MarkdownEditorDocument.readableContentTypes
     }
 
+    private var alertTitle: String {
+        if openErrorMessage != nil { return "Could Not Open File" }
+        if imageImporter.errorMessage != nil { return "Could Not Add Image" }
+        return "Image Resources"
+    }
+
+    private func documentURLChanged(from previous: URL?, to current: URL?) {
+        imageImporter.documentURL = current
+        guard let previous, let current,
+              previous.deletingLastPathComponent() != current.deletingLastPathComponent(),
+              documentIndex.blocks.contains(where: { block in
+                  if case .image(let image) = block.content { return image.isRelative }
+                  return false
+              }) else { return }
+        resourceNotice = "Images now resolve from the new document folder. Copy the assets folder alongside the document if needed; image files have not been moved."
+    }
+
     private var openErrorBinding: Binding<Bool> {
         Binding(
-            get: { openErrorMessage != nil },
+            get: { openErrorMessage != nil || imageImporter.errorMessage != nil || resourceNotice != nil },
             set: { isPresented in
                 if !isPresented {
                     openErrorMessage = nil
+                    imageImporter.errorMessage = nil
+                    resourceNotice = nil
                 }
             }
         )
@@ -223,13 +261,14 @@ struct MarkdownEditorView: View {
 private struct MarkdownSourcePane: View {
     @Binding var markdown: String
     let editor: MarkdownNativeEditorController
+    let onImageDrop: ([URL], NSRange) -> Bool
     @Environment(\.markdownTheme) private var theme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             PaneHeader(title: "Source", systemImage: "square.and.pencil", theme: theme)
 
-            MarkdownNativeEditor(text: $markdown, controller: editor, theme: theme)
+            MarkdownNativeEditor(text: $markdown, controller: editor, theme: theme, onImageDrop: onImageDrop)
         }
     }
 }

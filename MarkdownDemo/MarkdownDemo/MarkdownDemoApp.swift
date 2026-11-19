@@ -13,7 +13,7 @@ struct MarkdownDemoApp: App {
         #if os(macOS)
         DocumentGroup(newDocument: MarkdownEditorDocument()) { file in
             MarkdownThemeRoot {
-                MarkdownEditorView(document: file.$document)
+                MarkdownEditorView(document: file.$document, fileURL: file.fileURL)
             }
         }
         #else

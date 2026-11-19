@@ -56,6 +56,24 @@ final class MarkdownNativeEditorController: NSObject, ObservableObject, NSTextVi
         if focus { textView.window?.makeFirstResponder(textView) }
     }
 
+    func insertImageReferences(_ references: [String], replacing range: NSRange, expectedText: String) -> Bool {
+        let source = textView.string as NSString
+        guard !references.isEmpty, textView.isEditable, !textView.hasMarkedText(),
+              textView.string.utf16.elementsEqual(expectedText.utf16), range.location >= 0, range.location <= source.length,
+              range.length >= 0, range.length <= source.length - range.location,
+              Range(range, in: expectedText) != nil else { return false }
+        let before = source.substring(to: range.location)
+        let after = source.substring(from: range.location + range.length)
+        let prefix = before.isEmpty || before.hasSuffix("\n\n") ? "" : (before.hasSuffix("\n") ? "\n" : "\n\n")
+        let suffix = after.hasPrefix("\n\n") ? "" : (after.hasPrefix("\n") ? "\n" : "\n\n")
+        let insertion = prefix + references.joined(separator: "\n\n") + suffix
+        textView.breakUndoCoalescing()
+        textView.insertText(insertion, replacementRange: range)
+        textView.breakUndoCoalescing()
+        textView.undoManager?.setActionName("Insert Image")
+        return textView.string == before + insertion + after
+    }
+
     private func performPendingNavigation() {
         guard let offset = pendingNavigationOffset, textView.window != nil else { return }
         pendingNavigationOffset = nil
@@ -94,6 +112,33 @@ final class MarkdownNativeEditorController: NSObject, ObservableObject, NSTextVi
 
 private final class MarkdownEditorTextView: NSTextView {
     var onWindowAttached: (() -> Void)?
+    var onImageDrop: (([URL], NSRange) -> Bool)?
+
+    override var acceptableDragTypes: [NSPasteboard.PasteboardType] {
+        let types = super.acceptableDragTypes
+        return types.contains(.fileURL) ? types : types + [.fileURL]
+    }
+
+    override func dragOperation(for dragInfo: NSDraggingInfo, type: NSPasteboard.PasteboardType) -> NSDragOperation {
+        let operation = super.dragOperation(for: dragInfo, type: type)
+        return onImageDrop != nil && imageURLs(from: dragInfo.draggingPasteboard) != nil ? .copy : operation
+    }
+
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        guard let onImageDrop, let urls = imageURLs(from: sender.draggingPasteboard) else {
+            return super.performDragOperation(sender)
+        }
+        let point = convert(sender.draggingLocation, from: nil)
+        let offset = min(characterIndexForInsertion(at: point), string.utf16.count)
+        return onImageDrop(urls, NSRange(location: offset, length: 0))
+    }
+
+    private func imageURLs(from pasteboard: NSPasteboard) -> [URL]? {
+        guard let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as? [URL],
+              !urls.isEmpty, urls.allSatisfy({ ["png", "jpg", "jpeg"].contains($0.pathExtension.lowercased()) })
+        else { return nil }
+        return urls
+    }
 
     override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
@@ -105,14 +150,26 @@ struct MarkdownNativeEditor: NSViewRepresentable {
     @Binding var text: String
     let controller: MarkdownNativeEditorController
     let theme: MarkdownTheme
+    var onImageDrop: (([URL], NSRange) -> Bool)?
+
+    final class Coordinator {
+        var onImageDrop: (([URL], NSRange) -> Bool)?
+    }
+
+    func makeCoordinator() -> Coordinator { Coordinator() }
 
     func makeNSView(context: Context) -> NSScrollView {
         controller.text = $text
+        context.coordinator.onImageDrop = onImageDrop
+        (controller.textView as? MarkdownEditorTextView)?.onImageDrop = { [weak coordinator = context.coordinator] urls, range in
+            coordinator?.onImageDrop?(urls, range) ?? false
+        }
         return controller.scrollView
     }
 
     func updateNSView(_ scrollView: NSScrollView, context: Context) {
         let textView = controller.textView
+        context.coordinator.onImageDrop = onImageDrop
         controller.text = $text
         if textView.string != text && !textView.hasMarkedText() {
             let selection = textView.selectedRange()
@@ -130,5 +187,9 @@ struct MarkdownNativeEditor: NSViewRepresentable {
         ]
     }
 
+    static func dismantleNSView(_ scrollView: NSScrollView, coordinator: Coordinator) {
+        (scrollView.documentView as? MarkdownEditorTextView)?.onImageDrop = nil
+        coordinator.onImageDrop = nil
+    }
 }
 #endif

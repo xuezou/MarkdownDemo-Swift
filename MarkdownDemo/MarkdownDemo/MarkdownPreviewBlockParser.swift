@@ -10,6 +10,7 @@ enum MarkdownPreviewBlock: Equatable {
     case mermaid(String)
     case table(MarkdownTable)
     case code(language: String, source: String)
+    case image(MarkdownImageReference)
 }
 
 struct MarkdownPreviewSourceBlock {
@@ -30,6 +31,7 @@ enum MarkdownPreviewBlockParser {
             return offset
         }
         offsets.append(markdown.utf16.count)
+        let images = MarkdownImageReference.blocks(in: markdown)
         var blocks: [MarkdownPreviewSourceBlock] = []
         var markdownBuffer: [String] = []
         var bufferStart = 0
@@ -56,6 +58,11 @@ enum MarkdownPreviewBlockParser {
                 flushMarkdown()
                 append(code.block, from: index, to: code.endIndex)
                 index = code.endIndex
+            } else if let image = images[index] {
+                flushMarkdown()
+                let end = min(image.endLine, lines.count)
+                append(.image(image.image), from: index, to: end)
+                index = end
             } else if let tableBlock = parseTableBlock(lines, startingAt: index) {
                 flushMarkdown()
                 append(.table(tableBlock.table), from: index, to: tableBlock.endIndex)

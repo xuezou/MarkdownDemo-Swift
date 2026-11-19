@@ -15,6 +15,7 @@ struct MarkdownPreviewPane: View {
     let index: MarkdownDocumentIndex
     let theme: MarkdownTheme
     let target: MarkdownPreviewTarget?
+    var documentURL: URL? = nil
     let navigateToAnchor: (String) -> Bool
 
     var body: some View {
@@ -64,6 +65,8 @@ struct MarkdownPreviewPane: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
         case .code(let language, let source):
             MarkdownCodeBlockView(language: language, source: source, theme: theme)
+        case .image(let reference):
+            MarkdownImageView(reference: reference, documentURL: documentURL)
         case .mermaid(let source):
             ScrollView(.horizontal) {
                 MermaidDiagramView(source: source)
