@@ -2,7 +2,7 @@
 
 面向程序员的开源原生 Markdown 工具：macOS 双栏编辑与阅读，iPhone 保留渲染 Demo 列表。
 
-**macOS 下载：**[下载 Mano 0.0.2 DMG](https://github.com/xuezou/MarkdownDemo-Swift/releases/download/v0.0.2/Mano-V0.0.2-20261022.dmg) · [全部版本](https://github.com/xuezou/MarkdownDemo-Swift/releases)。DMG 已完成 Developer ID 签名和 Apple 公证；`Source code` 是源码压缩包。
+**macOS 下载：**[下载 Mano 0.0.3 DMG](https://github.com/xuezou/MarkdownDemo-Swift/releases/download/v0.0.3/Mano-V0.0.3-20261119.dmg) · [全部版本](https://github.com/xuezou/MarkdownDemo-Swift/releases)。应用已签名，安装包已通过 Apple 公证；`Source code` 是源码压缩包。
 
 ## macOS 编辑器
 
@@ -15,7 +15,7 @@
 
 大纲与定位通过 [MarkdownDocumentIndex](MarkdownDemo/MarkdownDemo/MarkdownDocumentIndex.swift) 复用 `swift-markdown` 的语法树与源码范围，编辑操作仍由原生 `NSTextView` 处理。当前联动以内容块为单位；段落、代码块和图表内部不做逐行同步。
 
-### 本地图片（0.0.3 开发版）
+### 本地图片
 
 预览支持独立成段的本地 PNG、JPEG 图片，包括相对路径和引用式图片；带中文、空格或百分号的文件名可正常解析。
 
@@ -27,7 +27,7 @@
 
 插入引用支持原生撤销、重做；撤销不删除图片文件。将文档与 `assets/` 一起移动可保留图片引用；另存为其他目录不会自动迁移图片，会提示复制资源。大图在后台缩略解码，缺失或损坏的图片显示说明和重试按钮。
 
-当前不加载网络图片，不处理 SVG、动画或正文内的图片混排。以上能力尚未包含在已发布的 0.0.2 DMG 中。
+当前不加载网络图片，不处理 SVG、动画或正文内的图片混排。
 
 ## iOS 自定义 Markdown 渲染实践：从成品库到可魔改 Demo
 
@@ -464,7 +464,7 @@ macOS 版本使用系统文档窗口管理 Markdown 文件：
 
 ## 发布流程（macOS DMG）
 
-当前发布版本为 **0.0.2**。稳定节点才打包发布，不为每次 commit 生成安装包。
+稳定节点才打包发布，不为每次 commit 生成安装包。
 
 工程的 Debug / Release 版本、发布 tag（vX.Y.Z）与 DMG 内应用版本必须一致，脚本会检查。正式包要求干净工作区及当前提交上的匹配 tag，构建号使用提交计数。版本变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
@@ -486,26 +486,26 @@ macOS 版本使用系统文档窗口管理 Markdown 文件：
 
 ```bash
 # 1. 合并代码到 main 后打 tag（X.Y.Z 遵循语义化版本）
-git tag -a v0.0.2 -m "release v0.0.2"
+git tag -a v0.0.3 -m "Mano 0.0.3：支持本地图片预览和拖入插图"
 
 # 2. 出包：自动构建 Release → Developer ID 签名 → 打 DMG → 公证 → 装订票据
 ./scripts/release.sh
 # 3. 签名、公证、安装验证通过后，再推送版本 tag
-git push origin v0.0.2
+git push --atomic origin main v0.0.3
 ```
 
-产物：`dist/Mano-V0.0.2-<YYYYMMDD>.dmg`（日期为构建当天，同一天重复出包同名覆盖；DMG 内含 app 与 `/Applications` 拖拽快捷方式）。
+产物：`dist/Mano-V0.0.3-<YYYYMMDD>.dmg`（日期为构建当天，同一天重复出包同名覆盖；DMG 内含 app 与 `/Applications` 拖拽快捷方式）。
 
 本地验证打包流程可跳过公证（产物不可对外分发，Gatekeeper 会拦截）：
 
 ```bash
-./scripts/release.sh 0.0.2 --skip-notarize
+./scripts/release.sh 0.0.3 --skip-notarize
 ```
 
 发布到 GitHub Releases（可选，手动执行）：
 
 ```bash
-gh release create v0.0.2 dist/Mano-V0.0.2-YYYYMMDD.dmg --verify-tag --latest --title "Mano v0.0.2" --notes-file CHANGELOG.md
+gh release create v0.0.3 dist/Mano-V0.0.3-YYYYMMDD.dmg --verify-tag --latest --title "Mano v0.0.3" --notes-from-tag
 ```
 
 预览包文件名带 -unnotarized，仍有 Developer ID 签名，但未经公证，不能作为正式包发布。缺少公证凭证时先完成上面的一次性配置，或通过 NOTARY_KEYCHAIN_PROFILE 指定已有 profile。发布命令中的日期需替换为实际产物日期，不使用会混入预览包的通配符。
